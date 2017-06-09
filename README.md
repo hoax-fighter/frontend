@@ -1,2 +1,1 @@
 # hoax-fighter-frontend
-
