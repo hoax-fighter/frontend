@@ -4,6 +4,8 @@ import { Form, TextArea, Button } from 'semantic-ui-react'
 
 import { addUserInput, addNewsSearch } from '../actions';
 
+import SearchResult from './SearchResult'
+
 const styles = {
   container: {
     paddingTop: '50px',
@@ -43,18 +45,21 @@ class HoaxCheckerForm extends Component {
   render() {
     console.log(this.props.hoaxChecker)
     return (
-      <Form onSubmit={(e) => this.onUserSubmit(e)} style={styles.container}>
-        <Form.Field
-          control={TextArea}
-          label={'User Input'}
-          type="text"
-          name="userInput"
-          onChange={this.handleChange.bind(this)}
-          value={this.state.data.userInput}
-          placeholder="Enter url"
-        />
-        <Button primary>Submit</Button>
-      </Form>
+      <div>
+        <Form onSubmit={(e) => this.onUserSubmit(e)} style={styles.container}>
+          <Form.Field
+            control={TextArea}
+            label={'User Input'}
+            type="text"
+            name="userInput"
+            onChange={this.handleChange.bind(this)}
+            value={this.state.data.userInput}
+            placeholder="Enter url"
+          />
+          <Button primary>Submit</Button>
+        </Form>
+        <SearchResult />
+      </div>
     );
   }
 }
