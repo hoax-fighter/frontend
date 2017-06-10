@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import hoaxCheckerReducer from './hoaxCheckerReducer';
 
 const rootReducer = combineReducers({
-  hoaxChecker: hoaxCheckerReducer,
+  hoaxCheckerReducer: hoaxCheckerReducer,
 });
 
 export default rootReducer;

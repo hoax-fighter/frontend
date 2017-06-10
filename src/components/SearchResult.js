@@ -8,23 +8,32 @@ import {
     Icon
 } from 'semantic-ui-react'
 
-class SearchResult extends React.Component {
+const SearchResult = (props) => {
 
-    render() {
-        return (
-            <Container text>
-                <h1>Result</h1>
-                <Statistic>
-                    <Statistic.Value>
-                        <Icon name='check' />
-                        Berita Ini Hoax
-                    </Statistic.Value>
-                    <Statistic.Label></Statistic.Label>
-                </Statistic>
-                <ReferenceItem />
-            </Container>
-        )
-    }
+    console.log('msk props', props)
+
+    const { conclusion, sources } = props.hoaxResult
+
+    return (
+        <Container text>
+            <h1>Result</h1>
+            <Statistic>
+                <Statistic.Value>
+                    <Icon name='check' />
+                    {conclusion}
+                </Statistic.Value>
+                <Statistic.Label></Statistic.Label>
+            </Statistic>
+            <h1>Reference</h1>
+            {sources.map((item, index) => {
+                return (
+                    <ReferenceItem item={item} key={index} />
+                )
+            })}
+
+        </Container>
+    )
+
 
 }
 

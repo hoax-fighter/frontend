@@ -18,32 +18,35 @@ class HoaxCheckerForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: {
-        userInput: '',
-        tbh: [],
-      },
+      userInput: '',
     }
   }
 
   onUserSubmit(e) {
     e.preventDefault();
-    console.log('tes')
-    this.props.addUserInput(this.state.data.userInput);
-    this.props.addNewsSearch(this.state.data.userInput);
-    // console.log(this.props.);
-    console.log(this.state.data.userInput)
-    // console.log(this.props.hoaxChecker);
+    this.props.addUserInput(this.state.userInput);
   }
 
   handleChange(e) {
-    // const update = this.state.data.userInput;
-    // update[e.target.name] = e.target.value;
-    this.setState({ data: { userInput: e.target.value } });
-    // console.log(this.state.userInput);
+    this.setState({
+      userInput: e.target.value
+    });
+  }
+
+  checkResult() {
+    if (this.props.hoaxResult) {
+      return <SearchResult hoaxResult={this.props.hoaxResult} />
+    } else {
+      return (
+        <div>
+          No Data
+        </div>
+      )
+    }
   }
 
   render() {
-    console.log(this.props.hoaxChecker)
+    // console.log(this.props.sourceNews)
     return (
       <div>
         <Form onSubmit={(e) => this.onUserSubmit(e)} style={styles.container}>
@@ -53,19 +56,19 @@ class HoaxCheckerForm extends Component {
             type="text"
             name="userInput"
             onChange={this.handleChange.bind(this)}
-            value={this.state.data.userInput}
+            value={this.state.userInput}
             placeholder="Enter url"
           />
           <Button primary>Submit</Button>
         </Form>
-        <SearchResult />
+        {this.checkResult()}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  hoaxChecker: state,
+  hoaxResult: state.hoaxCheckerReducer.tbh
 })
 
 const mapDispatchToProps = dispatch => ({
