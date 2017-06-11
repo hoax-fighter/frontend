@@ -98,13 +98,8 @@ class HoaxCheckerForm extends Component {
             type="text"
             name="userInput"
             onChange={this.handleChange.bind(this)}
-<<<<<<< HEAD
-            value={this.state.userInput}
             placeholder="Hasil akan lebih baik jika konten berisi lebih banyak detail (misal: lebih dari dua kalimat)..."
-=======
-            placeholder="Enter url"
             required={true}
->>>>>>> b8fd549f483b204c07c3632070d45e4e58a7070f
           />
           <Button style={{backgroundColor: 'royalblue', color: 'white'}}>Cek Konten</Button>
         </Form>
