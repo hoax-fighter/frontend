@@ -5,16 +5,22 @@ import {
     Icon,
 } from 'semantic-ui-react'
 
+const styles = {
+  contentStyle: {
+    paddingLeft: 20,
+  },
+}
+
 const ReferenceItem = (props) => {
 
-    const { description, provider, url } = props.item
+  const { description, provider, url, bingUrl } = props.item
 
-    return (
+  return (
         <Item.Group>
             <Item>
                 <Icon name='newspaper' size='huge' />
                 <Item.Content style={styles.contentStyle}>
-                    <Item.Header as='a' href={url}>{provider}</Item.Header>
+                    <Item.Header style={{ color: 'blue' }} as="a"><a rel="noopener noreferrer" target="_blank" href={bingUrl ? bingUrl : url}>{provider}</a></Item.Header>
                     <Item.Meta>Description</Item.Meta>
                     <Item.Description>
                         {description}
@@ -25,10 +31,6 @@ const ReferenceItem = (props) => {
     )
 }
 
-const styles = {
-    contentStyle: {
-        paddingLeft: 20
-    }
-}
+
 
 export default ReferenceItem

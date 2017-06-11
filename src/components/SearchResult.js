@@ -8,6 +8,12 @@ import {
     Icon
 } from 'semantic-ui-react'
 
+const styles = {
+    center: {
+        textAlign: 'center',
+    }
+}
+
 const SearchResult = (props) => {
 
     console.log('msk props', props)
@@ -16,7 +22,7 @@ const SearchResult = (props) => {
 
     return (
         <Container text>
-            <h1>Result</h1>
+            <h1 style={styles.center}>Result</h1>
             <Statistic>
                 <Statistic.Value>
                     <Icon name='check' />
@@ -24,7 +30,7 @@ const SearchResult = (props) => {
                 </Statistic.Value>
                 <Statistic.Label></Statistic.Label>
             </Statistic>
-            <h1>Reference</h1>
+            <h1 style={styles.center}>Reference</h1>
             {sources.map((item, index) => {
                 return (
                     <ReferenceItem item={item} key={index} />
