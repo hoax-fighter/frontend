@@ -24,10 +24,12 @@ class HoaxCheckerForm extends Component {
 
   onUserSubmit(e) {
     e.preventDefault();
+    console.log(this.state.userInput)
     this.props.addUserInput(this.state.userInput);
   }
 
   handleChange(e) {
+    console.log(e.target.value)
     this.setState({
       userInput: e.target.value
     });
@@ -56,8 +58,8 @@ class HoaxCheckerForm extends Component {
             type="text"
             name="userInput"
             onChange={this.handleChange.bind(this)}
-            value={this.state.userInput}
             placeholder="Enter url"
+            required={true}
           />
           <Button primary>Submit</Button>
         </Form>

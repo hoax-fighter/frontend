@@ -1,5 +1,7 @@
 import React from 'react'
 
+import HoaxCheckerForm from './HoaxCheckerForm'
+
 class Home extends React.Component {
 
     constructor(props) {
@@ -10,20 +12,8 @@ class Home extends React.Component {
     }
 
     render() {
-        // if (this.state.showSignIn) {
-        //     return (
-        //         <SignIn />
-        //     )
-
-        // } else {
-        //     return (
-        //         <Register />
-        //     )
-        // }
         return (
-            <div>
-                <h1>Home</h1>
-            </div>
+            <HoaxCheckerForm />
         )
     }
 }

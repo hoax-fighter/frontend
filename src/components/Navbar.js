@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
-import { Menu, Button } from 'semantic-ui-react'
+import { Menu, Button, Icon } from 'semantic-ui-react'
 
 import SignIn from './SignIn'
 import Register from './Register'
+
+import { connect } from 'react-redux'
+
+import {
+  signOutUser
+} from '../actions'
+
+const styles = {
+  navbarStyle: {
+    backgroundColor: 'royalblue',
+    borderColor: 'transparent',
+    borderRadius: 0,
+  }
+}
 
 class Navbar extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      statusSignIn: false
-    }
+    this.signOut = this.signOut.bind(this)
   }
 
   renderBeforeSignIn() {
     return (
-      <Menu>
+      <Menu fixed='top' color='blue' inverted style={styles.navbarStyle}>
         <Menu.Item
           name="Hoax Fighter"
           color="blue"
@@ -35,7 +47,7 @@ class Navbar extends Component {
 
   renderAfterSignIn() {
     return (
-      <Menu>
+      <Menu fixed='top' color='blue' inverted style={styles.navbarStyle}>
         <Menu.Item
           name="Hoax Fighter"
           color="blue"
@@ -43,30 +55,46 @@ class Navbar extends Component {
 
         <Menu.Menu position='right'>
           <Menu.Item>
-            <Button primary>Sign Out</Button>
+            <Button
+              onClick={this.signOut}
+              color="red"
+            ><Icon name='sign out' /> Sign Out</Button>
           </Menu.Item>
         </Menu.Menu>
       </Menu>
     )
   }
 
-  render() {
-    if (this.state.statusSignIn) {
-      return (
-        <div>
-          {this.renderBeforeSignIn()}
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          {this.renderBeforeSignIn()}
-        </div>
-      )
+  signOut() {
+    this.props.signOutUser()
+  }
 
+  render() {
+    let data = localStorage.getItem('token')
+    if (data) {
+      return (
+        <div>
+          {this.renderAfterSignIn()}
+        </div>
+      )
     }
+
+    return (
+      <div>
+        {this.renderBeforeSignIn()}
+      </div>
+    )
 
   }
 }
 
-export default Navbar;
+const mapStateToProps = state => ({
+  signInMessage: state.authReducer.signInMessage
+})
+const mapDispatchToProps = dispatch => ({
+  signOutUser: () => {
+    dispatch(signOutUser())
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
