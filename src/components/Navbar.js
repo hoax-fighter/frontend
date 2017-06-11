@@ -55,11 +55,7 @@ class Navbar extends Component {
 
   renderAfterSignIn() {
     return (
-<<<<<<< HEAD
-      <Menu fixed="top" style={styles.menu}>
-=======
       <Menu fixed='top' color='blue' inverted style={styles.navbarStyle}>
->>>>>>> b8fd549f483b204c07c3632070d45e4e58a7070f
         <Menu.Item
           style={{ color: 'white' }}
           name="Hoax Fighter"
