@@ -11,18 +11,22 @@ import {
 const styles = {
     center: {
         textAlign: 'center',
-    }
+    },
+    top: {
+        marginTop: 50,
+    },
 }
 
 const SearchResult = (props) => {
 
     console.log('msk props', props)
 
-    const { conclusion, sources } = props.hoaxResult
+    const { conclusion, sources, message } = props.hoaxResult
+
 
     return (
-        <Container text>
-            <h1 style={styles.center}>Result</h1>
+        <Container text style={styles.top}>
+            { /* <h1 style={styles.center}>Hasil</h1> */ }
             <Statistic>
                 <Statistic.Value>
                     <Icon name='check' />
@@ -33,7 +37,7 @@ const SearchResult = (props) => {
             <h1 style={styles.center}>Reference</h1>
             {sources.map((item, index) => {
                 return (
-                    <ReferenceItem item={item} key={index} />
+                    <ReferenceItem message={message} item={item} key={index} />
                 )
             })}
 

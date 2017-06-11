@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, TextArea, Button, Image } from 'semantic-ui-react'
+import { Form, TextArea, Button, Image, Message } from 'semantic-ui-react'
+import Spinner from 'react-spinkit';
 
 import { addUserInput, addNewsSearch } from '../actions';
 
@@ -30,6 +31,10 @@ const styles = {
   fontColor: {
     color: '#303841',
   },
+  loading: {
+    textAlign: 'center',
+    marginTop: 30,
+  },
 }
 
 class HoaxCheckerForm extends Component {
@@ -37,27 +42,43 @@ class HoaxCheckerForm extends Component {
     super(props)
     this.state = {
       userInput: '',
+      userInputTemp: '',
+      isSubmitted: false,
     }
   }
 
   onUserSubmit(e) {
     e.preventDefault();
-    this.props.addUserInput(this.state.userInput);
+    this.setState({
+      isSubmitted: true,
+    })
+    setTimeout(() => { this.checkHoax(); }, 1000);
+  }
+
+  checkHoax() {
+    this.props.addUserInput(this.state.userInput)
+    // const back = {
+    //   userInput: '',
+    // }
+    // this.setState(back)
   }
 
   handleChange(e) {
     this.setState({
-      userInput: e.target.value
+      userInput: e.target.value,
+      userInputTemp: e.target.value,
     });
   }
 
   checkResult() {
     if (this.props.hoaxResult) {
-      return <SearchResult hoaxResult={this.props.hoaxResult} />
+      return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
     } else {
       return (
-        <div>
-          No Data
+        <div style={styles.loading}>
+          {
+            (this.state.isSubmitted) && <Spinner name="line-scale" />
+          }
         </div>
       )
     }
