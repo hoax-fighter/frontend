@@ -18,14 +18,6 @@ const styles = {
   }
 }
 
-const styles = {
-  menu: {
-    backgroundColor: '#303841',
-    borderColor: 'transparent',
-    borderRadius: 0,
-  },
-}
-
 class Navbar extends Component {
 
   constructor(props) {
