@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Menu, Button, Icon } from 'semantic-ui-react'
 
+import { Link } from 'react-router-dom'
+
 import SignIn from './SignIn'
 import Register from './Register'
 
@@ -48,11 +50,8 @@ class Navbar extends Component {
   renderAfterSignIn() {
     return (
       <Menu fixed='top' color='blue' inverted style={styles.navbarStyle}>
-        <Menu.Item
-          style={{ color: 'white' }}
-          name="Hoax Fighter"
-        />
-
+        <Link to="/"><Menu.Item style={{ color: 'white' }} name='Hoax Fighter' /></Link>
+        <Link to="/hoaxlist"><Menu.Item style={{ color: 'white' }} name='Check Hoax News' /></Link>
         <Menu.Menu position='right'>
           <Menu.Item>
             <Button
@@ -71,20 +70,20 @@ class Navbar extends Component {
 
   render() {
     let data = localStorage.getItem('token')
+    console.log('data', data)
     if (data) {
       return (
         <div>
           {this.renderAfterSignIn()}
         </div>
       )
+    } else {
+      return (
+        <div>
+          {this.renderBeforeSignIn()}
+        </div>
+      )
     }
-
-    return (
-      <div>
-        {this.renderBeforeSignIn()}
-      </div>
-    )
-
   }
 }
 

@@ -7,3 +7,4 @@
 
 export * from './hoaxCheckerAction'
 export * from './authAction'
+export * from './postHoaxAction'

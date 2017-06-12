@@ -3,11 +3,11 @@ import { BrowserRouter, Route } from 'react-router-dom'
 
 import Navbar from './components/Navbar';
 import Home from './components/Home'
+import HoaxList from './components/Hoax/HoaxList.js'
 
 import { Container } from 'semantic-ui-react'
 
 import firebase from 'firebase'
-
 
 class App extends Component {
 
@@ -31,6 +31,7 @@ class App extends Component {
           <Navbar />
           <Container>
             <Route exact path="/" component={Home} />
+            <Route exact path="/hoaxlist" component={HoaxList} />
           </Container>
         </div>
       </BrowserRouter>

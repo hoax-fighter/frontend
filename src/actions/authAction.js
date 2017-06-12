@@ -14,10 +14,19 @@ export const signInUserFailed = (message) => ({
 
 export const signInUser = ({ email, password }) => {
     return dispatch => {
+        dispatch(signInLoading())
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(user => {
                 localStorage.setItem('token', user.ie)
                 dispatch(signInUserSuccess())
+                axios.get(`http://localhost:3002/api/board/users/find/${user.email}`)
+                    .then(response => {
+                        dispatch(saveUserData(response.data.users._id))
+                        alert('Sign In Success')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(error => {
                 // console.log(error)
@@ -28,6 +37,7 @@ export const signInUser = ({ email, password }) => {
                     message = 'Email is Invalid'
                 }
                 dispatch(signInUserFailed(message))
+                alert(message)
             })
     }
 }
@@ -38,6 +48,7 @@ export const signOutUser = () => {
             .then(() => {
                 localStorage.clear()
                 dispatch(signOutUserSuccess())
+                alert('Sign Out Success')
             })
     }
 }
@@ -50,14 +61,14 @@ export const registerUser = ({ name, email, password }) => {
     return dispatch => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(user => {
-                const { email, ie } = user
+                const { email } = user
                 axios.post(`http://localhost:3002/api/board/users`, {
-                    uid: ie,
                     name,
                     email
                 })
                     .then(response => {
                         dispatch(registerUserSuccess())
+                        alert('Register Success')
                     })
             })
             .catch(error => {
@@ -68,6 +79,7 @@ export const registerUser = ({ name, email, password }) => {
                     message = 'Password should be at least 6 characters'
                 }
                 dispatch(registerUserFailed(message))
+                alert(message)
             })
     }
 }
@@ -83,4 +95,9 @@ export const registerUserFailed = message => ({
 
 export const signInLoading = () => ({
     type: actionType.SIGNIN_LOADING,
+})
+
+export const saveUserData = (id) => ({
+    type: actionType.SAVE_USER_DATA,
+    payload: id
 })
