@@ -13,9 +13,24 @@ const styles = {
 
 const ReferenceItem = (props) => {
 
-  const { description, provider, url, bingUrl, isUrlReputable } = props.item
+  const { description, provider, url, bingUrl, isUrlReputable, source } = props.item
 
-  return (
+  console.log(props)
+
+  if (props.message === 'found in turnbackhoax.id') {
+      return (
+          <Item.Group>
+            <Item>
+                <Icon name='newspaper' size='huge' />
+                <Item.Content style={styles.contentStyle}>
+                    <Item.Header style={{ color: 'blue' }} as="a"><a rel="noopener noreferrer" target="_blank" href={source.url}>{source.title}</a></Item.Header>
+                    <Item.Meta style={{ color: '#1EE494' }}>Sumber terpercaya</Item.Meta>
+                </Item.Content>
+            </Item>
+        </Item.Group>
+      )
+    } else {
+    return (
         <Item.Group>
             <Item>
                 <Icon name='newspaper' size='huge' />
@@ -29,6 +44,9 @@ const ReferenceItem = (props) => {
             </Item>
         </Item.Group>
     )
+    }
+
+  
 }
 
 

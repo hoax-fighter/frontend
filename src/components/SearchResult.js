@@ -23,6 +23,7 @@ const SearchResult = (props) => {
 
     const { conclusion, sources, message } = props.hoaxResult
 
+    console.log(message)
 
     return (
         <Container text style={styles.top}>
