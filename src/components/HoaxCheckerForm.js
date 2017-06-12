@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, TextArea, Button, Image, Message } from 'semantic-ui-react'
+import { Form, TextArea, Button, Image, Message, Dimmer, Loader, Segment } from 'semantic-ui-react'
 import Spinner from 'react-spinkit';
 
 import { addUserInput, addNewsSearch } from '../actions';
@@ -72,23 +72,37 @@ class HoaxCheckerForm extends Component {
   }
 
   checkResult() {
-    if (this.props.hoaxResult) {
-      return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
-    } else {
-      return (
-        <div style={styles.loading}>
-          {
-            (this.state.isSubmitted) && <Spinner name="line-scale" />
-          }
-        </div>
-      )
-    }
+    console.log('loading', this.props.loading)
+    console.log('data', this.props.hoaxResult)
+
+    if(this.props.hoaxResult){
+          return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
+    } 
+
+    
+    // if(this.props.loading){
+    //   return (
+    //     <Spinner name="line-scale" />
+    //   )
+    // } else {
+    //     if(this.props.hoaxResult){
+    //        return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
+    //     } else {
+    //       return (
+    //         <div>
+    //           <h1>cari dulu</h1>
+    //         </div>
+    //       )
+    //     }
+    // }
+
   }
 
   render() {
     // console.log(this.props.sourceNews)
     return (
-      <div style={styles.top}>
+      
+        <div style={styles.top}>
         { /* <Image style={styles.image} src='http://imageupload.co.uk/images/2017/06/10/ScreenShot2017-06-10at15.52.42.png' size="medium" /> */ }
         <h1 style={styles.logo}>Hoax Fighter</h1>
         <Form onSubmit={e => this.onUserSubmit(e)} style={styles.container}>
@@ -101,21 +115,23 @@ class HoaxCheckerForm extends Component {
             placeholder="Hasil akan lebih baik jika konten berisi lebih banyak detail (misal: lebih dari dua kalimat)..."
             required={true}
           />
-          <Button style={{backgroundColor: 'royalblue', color: 'white'}}>Cek Konten</Button>
+          <Button loading={this.props.loading} style={{backgroundColor: 'royalblue', color: 'white'}}>Cek Konten</Button>
         </Form>
         {this.checkResult()}
       </div>
+      
     );
   }
 }
 
 const mapStateToProps = state => ({
   hoaxResult: state.hoaxCheckerReducer.tbh,
+  loading: state.hoaxCheckerReducer.loading,
 })
 
 const mapDispatchToProps = dispatch => ({
   addUserInput: userInput => dispatch(addUserInput(userInput)),
-  addNewsSearch: userInput => dispatch(addNewsSearch(userInput)),
+  addNewsSearch: userInput => dispatch(addNewsSearch(userInput))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HoaxCheckerForm);

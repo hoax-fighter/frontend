@@ -6,10 +6,15 @@ export const addUserInputSuccess = result => ({
   payload: result,
 })
 
+export const addUserInputStart = result => ({
+  type : actionType.ADD_NEWS_SEARCH_START
+})
+
 export const addUserInput = (userInput) => {
 
   const input = { input: userInput }
   return (dispatch) => {
+    dispatch(addUserInputStart())
     axios.post('http://localhost:3002/api/check', input)
       .then(res => {
         dispatch(addUserInputSuccess(res.data))

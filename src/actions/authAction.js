@@ -80,3 +80,7 @@ export const registerUserFailed = message => ({
     type: actionType.REGISTER_FAILED,
     payload: message
 })
+
+export const signInLoading = () => ({
+    type: actionType.SIGNIN_LOADING,
+})
