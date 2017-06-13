@@ -132,7 +132,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addUserInput: userInput => dispatch(addUserInput(userInput)),
-  addNewsSearch: userInput => dispatch(addNewsSearch(userInput))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HoaxCheckerForm);

@@ -55,11 +55,11 @@ onClickDownVote(data, idx) {
 }
 
 showUpVoteCount() {
-    
+
 }
 
 showDownVoteCount() {
-
+    
 }
 
     render() {
