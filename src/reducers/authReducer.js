@@ -4,7 +4,7 @@ let initialState = {
     registerMessage: '',
     signInMessage: '',
     userId: '',
-    loading: false,
+    loading: false
 }
 
 const signInSuccess = state => {
@@ -20,8 +20,7 @@ const signInFailed = (state, payload) => {
     let newState = {
         ...state,
         signInMessage: payload,
-        loading: false,
-
+        loading: false
     }
 
     return newState
@@ -30,7 +29,7 @@ const signInFailed = (state, payload) => {
 const signOutSuccess = (state) => {
     let newState = {
         ...state,
-        signInMessage: 'Sign Out Success',
+        signInMessage: 'Sign Out Success'
     }
 
     return newState
@@ -57,7 +56,7 @@ const saveUserData = (state, id) => {
     let newState = {
         ...state,
         userId: id,
-        loading: false,
+        loading: false
     }
 
     return newState
@@ -66,7 +65,7 @@ const saveUserData = (state, id) => {
 const signInLoading = (state) => {
     let newState = {
         ...state,
-        loading: true,
+        loading: true
     }
 
     return newState

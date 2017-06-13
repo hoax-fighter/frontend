@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, TextArea, Button, Image, Message, Dimmer, Loader, Segment } from 'semantic-ui-react'
-import Spinner from 'react-spinkit';
+import { Form, TextArea, Button, Loader } from 'semantic-ui-react'
 
 import { addUserInput, addNewsSearch } from '../actions';
 
@@ -35,6 +34,9 @@ const styles = {
     textAlign: 'center',
     marginTop: 30,
   },
+  loader: {
+    marginTop: 200
+  }
 }
 
 class HoaxCheckerForm extends Component {
@@ -57,10 +59,6 @@ class HoaxCheckerForm extends Component {
 
   checkHoax() {
     this.props.addUserInput(this.state.userInput)
-    // const back = {
-    //   userInput: '',
-    // }
-    // this.setState(back)
   }
 
   handleChange(e) {
@@ -72,6 +70,7 @@ class HoaxCheckerForm extends Component {
   }
 
   checkResult() {
+
     console.log('loading', this.props.loading)
     // console.log('data', this.props.hoaxResult)
     console.log('data', this.props.hoaxResult.sources)
@@ -97,14 +96,25 @@ class HoaxCheckerForm extends Component {
     //     }
     // }
 
+
+    if (this.props.hoaxResult) {
+      return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
+    }
   }
 
   render() {
-    
+
+    if (this.props.loadingSignIn) {
+      return (
+        <Loader
+          style={styles.loader}
+          active
+          inline='centered'>Loading</Loader>
+      )
+    }
+
     return (
-      
-        <div style={styles.top}>
-        { /* <Image style={styles.image} src='http://imageupload.co.uk/images/2017/06/10/ScreenShot2017-06-10at15.52.42.png' size="medium" /> */ }
+      <div style={styles.top}>
         <h1 style={styles.logo}>Hoax Fighter</h1>
         <Form onSubmit={e => this.onUserSubmit(e)} style={styles.container}>
           <Form.Field
@@ -116,11 +126,11 @@ class HoaxCheckerForm extends Component {
             placeholder="Hasil akan lebih baik jika konten berisi lebih banyak detail (misal: lebih dari dua kalimat)..."
             required={true}
           />
-          <Button loading={this.props.loading} style={{backgroundColor: 'royalblue', color: 'white'}}>Cek Konten</Button>
+          <Button loading={this.props.loading} style={{ backgroundColor: 'royalblue', color: 'white' }}>Cek Konten</Button>
         </Form>
         {this.checkResult()}
       </div>
-      
+
     );
   }
 }
@@ -128,11 +138,11 @@ class HoaxCheckerForm extends Component {
 const mapStateToProps = state => ({
   hoaxResult: state.hoaxCheckerReducer.tbh,
   loading: state.hoaxCheckerReducer.loading,
+  loadingSignIn: state.authReducer.loading,
 })
 
 const mapDispatchToProps = dispatch => ({
-  addUserInput: userInput => dispatch(addUserInput(userInput)),
-  addNewsSearch: userInput => dispatch(addNewsSearch(userInput))
+  addUserInput: userInput => dispatch(addUserInput(userInput))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HoaxCheckerForm);

@@ -5,15 +5,11 @@ import * as actionType from '../actions/constants';
 // 2. lalu keluarkan returnnya
 
 let initialState = {
-  newsList: '',
+  newsList: [],
   tbh: '',
-  loading : false,
-};
+  loading: false
 
-const addNewsSearch = (state, data) => {
-  const newState = { ...state, newsList: data };
-  return newState;
-}
+};
 
 const addUserInput = (state, data) => {
   const newState = { ...state, tbh: data, loading: false };
@@ -21,7 +17,7 @@ const addUserInput = (state, data) => {
   return newState;
 }
 
-const addNewsSearchStart = state => {
+const addUserInputStart = state => {
   const newState = {
     ...state,
     loading: true
@@ -34,10 +30,8 @@ const hoaxCheckerReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.ADD_USER_INPUT_SUCCESS:
       return addUserInput(state, action.payload);
-    case actionType.ADD_NEWS_SEARCH_SUCCESS:
-      return addNewsSearch(state, action.payload);
-    case actionType.ADD_NEWS_SEARCH_START:
-      return addNewsSearchStart(state)
+    case actionType.ADD_USER_INPUT_START:
+      return addUserInputStart(state)
     default:
       return state;
   }

@@ -6,8 +6,8 @@ export const addUserInputSuccess = result => ({
   payload: result,
 })
 
-export const addUserInputStart = result => ({
-  type : actionType.ADD_NEWS_SEARCH_START
+export const addUserInputStart = () => ({
+  type: actionType.ADD_USER_INPUT_START,
 })
 
 export const addUserInput = (userInput) => {
@@ -24,16 +24,3 @@ export const addUserInput = (userInput) => {
       })
   }
 }
-
-export const addNewsSearchSuccess = result => ({
-  type: actionType.ADD_NEWS_SEARCH_SUCCESS,
-  payload: result,
-})
-
-export const addNewsSearch = (userInput) => {
-  const input = { word: userInput }
-  return (dispatch) => {
-    axios.post('http://localhost:3002/api/source/news', input)
-      .then(res => dispatch(addUserInputSuccess(res.data.record)))
-  }
-};

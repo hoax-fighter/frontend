@@ -5,8 +5,8 @@ import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 import {
-    signInUser
-} from '../actions'
+    insertHoax
+} from '../../actions'
 
 const styles = {
     buttonStyle: {
@@ -18,14 +18,15 @@ const styles = {
     }
 }
 
-class SignIn extends React.Component {
+class AddHoaxForm extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
             form: {
-                email: '',
-                password: ''
+                user: '',
+                title: '',
+                content: ''
             },
             modalOpen: false
         }
@@ -38,7 +39,8 @@ class SignIn extends React.Component {
         let { form } = this.state
 
         let tmpForm = {
-            ...form
+            ...form,
+            user: localStorage.getItem('user')
         }
 
         tmpForm[name] = value
@@ -50,10 +52,10 @@ class SignIn extends React.Component {
         })
     }
 
-    onSignIn(e) {
+    onUserSubmit(e) {
         e.preventDefault();
         this.handleClose()
-        this.props.signInUser(this.state.form)
+        this.props.insertHoax(this.state.form)
     }
 
     handleOpen = (e) => this.setState({
@@ -64,46 +66,44 @@ class SignIn extends React.Component {
         modalOpen: false,
     })
 
-
     render() {
         return (
             <Modal
                 trigger={<Button
                     onClick={this.handleOpen}
                     style={styles.buttonStyle}>
-                    <Icon name='sign in' /> Sign In</Button>}
+                    <Icon name='add square' /> Insert Hoax News</Button>}
                 closeIcon='close'
                 closeOnDimmerClick={false}
                 size='small'
                 open={this.state.modalOpen}
                 onClose={this.handleClose}>
-                <Header icon='sign in' content='Sign In' />
+                <Header icon='sign in' content='Add Hoax News' />
                 <Modal.Content>
-                    <Form onSubmit={(e) => this.onSignIn(e)}>
+                    <Form onSubmit={(e) => this.onUserSubmit(e)}>
                         <Form.Field>
-                            <label>Email</label>
+                            <label>Title</label>
                             <input
-                                placeholder='johndoe@mail.com'
-                                name='email'
-                                type="email"
+                                placeholder='Hoax Fighter'
+                                name='title'
+                                type='text'
                                 onChange={this.handleChange}
                                 required={true} />
                         </Form.Field>
-                        <Form.Field>
-                            <label>Password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder='Password'
-                                onChange={this.handleChange}
-                                required={true} />
-                        </Form.Field>
+                        <Form.TextArea
+                            label='Content'
+                            placeholder='Hoax Fighter is not real'
+                            onChange={this.handleChange}
+                            required={true}
+                            type='text'
+                            name='content'
+                            rows='4' />
                         <Button
                             color='blue'
                             floated='right'
                             style={styles.submitStyle}
                         >
-                            <Icon name='sign in' /> Sign In
+                            <Icon name='sign in' /> Insert
                     </Button>
                     </Form>
                 </Modal.Content>
@@ -112,10 +112,15 @@ class SignIn extends React.Component {
     }
 }
 
+
+const mapStateToProps = state => ({
+    userId: state.authReducer.userId
+})
+
 const mapDispatchToProps = dispatch => ({
-    signInUser: (data) => {
-        dispatch(signInUser(data))
+    insertHoax: (data) => {
+        dispatch(insertHoax(data))
     }
 })
 
-export default connect(null, mapDispatchToProps)(SignIn)
+export default connect(mapStateToProps, mapDispatchToProps)(AddHoaxForm)
