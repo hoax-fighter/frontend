@@ -7,7 +7,7 @@ import * as actionType from '../actions/constants';
 let initialState = {
   newsList: '',
   tbh: '',
-  loading : false
+  loading : false,
 };
 
 const addNewsSearch = (state, data) => {

@@ -3,6 +3,8 @@ import * as actionType from '../actions/constants'
 let initialState = {
     registerMessage: '',
     signInMessage: '',
+    userId: '',
+    loading: false,
 }
 
 const signInSuccess = state => {
@@ -17,7 +19,9 @@ const signInSuccess = state => {
 const signInFailed = (state, payload) => {
     let newState = {
         ...state,
-        signInMessage: payload
+        signInMessage: payload,
+        loading: false,
+
     }
 
     return newState
@@ -26,7 +30,7 @@ const signInFailed = (state, payload) => {
 const signOutSuccess = (state) => {
     let newState = {
         ...state,
-        ...initialState
+        signInMessage: 'Sign Out Success',
     }
 
     return newState
@@ -49,6 +53,25 @@ const registerFailed = (state, message) => {
     return newState
 }
 
+const saveUserData = (state, id) => {
+    let newState = {
+        ...state,
+        userId: id,
+        loading: false,
+    }
+
+    return newState
+}
+
+const signInLoading = (state) => {
+    let newState = {
+        ...state,
+        loading: true,
+    }
+
+    return newState
+}
+
 const authReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case actionType.SIGNIN_SUCCESS:
@@ -61,6 +84,10 @@ const authReducer = (state = initialState, { type, payload }) => {
             return registerSuccess(state)
         case actionType.REGISTER_FAILED:
             return registerFailed(state, payload)
+        case actionType.SAVE_USER_DATA:
+            return saveUserData(state, payload)
+        case actionType.SIGNIN_LOADING:
+            return signInLoading(state)
         default:
             return state
     }

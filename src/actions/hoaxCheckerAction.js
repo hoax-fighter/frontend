@@ -37,4 +37,3 @@ export const addNewsSearch = (userInput) => {
       .then(res => dispatch(addUserInputSuccess(res.data.record)))
   }
 };
-

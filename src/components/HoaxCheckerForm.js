@@ -73,7 +73,8 @@ class HoaxCheckerForm extends Component {
 
   checkResult() {
     console.log('loading', this.props.loading)
-    console.log('data', this.props.hoaxResult)
+    // console.log('data', this.props.hoaxResult)
+    console.log('data', this.props.hoaxResult.sources)
 
     if(this.props.hoaxResult){
           return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
@@ -99,7 +100,7 @@ class HoaxCheckerForm extends Component {
   }
 
   render() {
-    // console.log(this.props.sourceNews)
+    
     return (
       
         <div style={styles.top}>
