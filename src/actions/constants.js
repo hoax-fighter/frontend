@@ -21,8 +21,4 @@ export const ADD_VOTE_NON_HOAX = 'ADD_VOTE_NON_HOAX'
 
 export const UPVOTE_NEWS_SUCCESS = 'UPVOTE_NEWS_SUCCESS'
 export const DOWNVOTE_NEWS_SUCCESS = 'DOWNVOTE_NEWS_SUCCESS'
-<<<<<<< HEAD
-
-=======
->>>>>>> cbcb7c81b199cb6d3ecfee080537cad282d3fc0a
 
