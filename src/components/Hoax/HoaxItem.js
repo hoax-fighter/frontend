@@ -8,9 +8,6 @@ import {
 
 import { Link } from 'react-router-dom'
 
-import DetailHoax from './DetailHoax'
-import EditHoax from './EditHoax'
-
 const styles = {
     cardStyle: {
         marginTop: 30,
@@ -58,7 +55,11 @@ class HoaxItem extends React.Component {
         if (userId) {
             return (
                 <div>
-                    <DetailHoax data={this.props.item} />
+                    <Link to={`/detailhoax/${_id}`}>
+                        <Button>
+                            Detail
+                        </Button>
+                    </Link>
                     <Link to={`/edithoax/${_id}`}>
                         <Button>
                             Edit
@@ -66,10 +67,6 @@ class HoaxItem extends React.Component {
                     </Link>
                     <Button onClick={() => this.props.deleteHoax(_id)} basic color='red'>Delete</Button>
                 </div>
-            )
-        } else {
-            return (
-                <DetailHoax data={this.props.item} />
             )
         }
     }

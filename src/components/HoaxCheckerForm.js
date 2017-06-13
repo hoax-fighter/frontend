@@ -75,28 +75,6 @@ class HoaxCheckerForm extends Component {
     // console.log('data', this.props.hoaxResult)
     console.log('data', this.props.hoaxResult.sources)
 
-    if(this.props.hoaxResult){
-          return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
-    } 
-
-    
-    // if(this.props.loading){
-    //   return (
-    //     <Spinner name="line-scale" />
-    //   )
-    // } else {
-    //     if(this.props.hoaxResult){
-    //        return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
-    //     } else {
-    //       return (
-    //         <div>
-    //           <h1>cari dulu</h1>
-    //         </div>
-    //       )
-    //     }
-    // }
-
-
     if (this.props.hoaxResult) {
       return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
     }

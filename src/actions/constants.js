@@ -15,7 +15,14 @@ export const EDIT_HOAX = 'EDIT_HOAX'
 export const DELETE_HOAX = 'DELETE_HOAX'
 export const GET_DATA_HOAX = 'GET_DATA_HOAX'
 export const SAVE_USER_DATA = 'SAVE_USER_DATA'
+
+export const ADD_VOTE_HOAX = 'ADD_VOTE_HOAX'
+export const ADD_VOTE_NON_HOAX = 'ADD_VOTE_NON_HOAX'
+
 export const UPVOTE_NEWS_SUCCESS = 'UPVOTE_NEWS_SUCCESS'
 export const DOWNVOTE_NEWS_SUCCESS = 'DOWNVOTE_NEWS_SUCCESS'
+<<<<<<< HEAD
 
+=======
+>>>>>>> cbcb7c81b199cb6d3ecfee080537cad282d3fc0a
 

@@ -1,14 +1,20 @@
 import React from 'react'
 
-import { Button, Header, Icon, Modal, Card } from 'semantic-ui-react'
+import { Button, Header, Icon, Modal, Card, Container } from 'semantic-ui-react'
+
+import {
+    connect
+} from 'react-redux'
+
+import {
+    getDataHoax,
+    addVoteHoax,
+    addVoteNonHoax
+} from '../../actions'
 
 const styles = {
-    buttonStyle: {
-        backgroundColor: '#F5F5F5',
-        color: '#212121'
-    },
-    submitStyle: {
-        marginBottom: 20
+    top: {
+        marginTop: 100,
     }
 }
 
@@ -17,78 +23,90 @@ class DetailHoax extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            modalOpen: false
+            userId: '',
+            name: '',
+            value: '',
+            postId: ''
         }
+        this.voteHoax = this.voteHoax.bind(this);
+        this.nonVoteHoax = this.nonVoteHoax.bind(this)
     }
 
-    handleOpen = (e) => this.setState({
-        modalOpen: true,
-    })
+    componentDidMount() {
+        this.props.getDataHoax(this.props.match.params.id)
+    }
 
-    handleClose = (e) => this.setState({
-        modalOpen: false,
-    })
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            userId: nextProps.hoaxData.user._id,
+            name: nextProps.hoaxData.user.name,
+            postId: nextProps.hoaxData._id
+        })
+    }
 
-    renderButton() {
-        const { hoaxVoteCount, nonHoaxVoteCount } = this.props.data
-        let userId = localStorage.getItem('user')
-        if (userId) {
-            return (
-                <div>
-                    <br />
-                    <Button
-                        color='red'
-                        content='Hoax'
-                        icon='heart'
-                        label={{ basic: true, color: 'red', pointing: 'left', content: hoaxVoteCount }}
-                    />
-                    <Button
-                        color='red'
-                        content='Non Hoax'
-                        icon='heart'
-                        label={{ basic: true, color: 'red', pointing: 'left', content: nonHoaxVoteCount }}
-                    />
-                </div>
-            )
-        }
+    voteHoax() {
+        this.props.addVoteHoax(this.state)
+    }
+
+    nonVoteHoax() {
+        this.props.addVoteNonHoax(this.state)
     }
 
     render() {
-        // console.log('detail', this.props.data)
-        const { title, content, createdAt, hoaxVoteCount, nonHoaxVoteCount, user } = this.props.data
+        // console.log(this.props.hoaxData)
+        let { title, content, createdAt, hoaxVoteCount, nonHoaxVoteCount } = this.props.hoaxData
+        // let username = this.props.hoaxData.user.name
+        // let userId = this.props.hoaxData.user._id
         return (
-            <Modal
-                trigger={<Button
-                    onClick={this.handleOpen}
-                    style={styles.buttonStyle}>
-                    <Icon name='add square' /> Detail Hoax</Button>}
-                closeIcon='close'
-                closeOnDimmerClick={false}
-                size='small'
-                open={this.state.modalOpen}
-                onClose={this.handleClose}>
-                <Header icon='sign in' content='Detail Hoax' />
-                <Modal.Content>
-                    <Card fluid>
-                        <Card.Content>
-                            <Card.Header>
-                                {title}
-                            </Card.Header>
-                            <Card.Description>
-                                {content}
-                            </Card.Description>
-                            <hr />
-                            <Card.Meta>Posted By : {user.name}</Card.Meta>
-                            <Card.Meta>{createdAt}</Card.Meta>
-                            {this.renderButton()}
-                        </Card.Content>
-                    </Card>
-                </Modal.Content>
-            </Modal>
+            <Container text style={styles.top}>
+                <Card fluid>
+                    <Card.Content>
+                        <Card.Header>
+                            {title}
+                        </Card.Header>
+                        <Card.Description>
+                            {content}
+                        </Card.Description>
+                        <hr />
+                        <Card.Meta>Posted By : {this.state.name}</Card.Meta>
+                        <Card.Meta>{createdAt}</Card.Meta>
+                        <br />
+                        <Button
+                            color='red'
+                            content='Hoax'
+                            icon='heart'
+                            label={{ basic: true, color: 'red', pointing: 'left', content: hoaxVoteCount }}
+                            onClick={this.voteHoax}
+                        />
+                        <Button
+                            color='red'
+                            content='Non Hoax'
+                            icon='heart'
+                            label={{ basic: true, color: 'red', pointing: 'left', content: nonHoaxVoteCount }}
+                            onClick={this.nonVoteHoax}
+                        />
+                    </Card.Content>
+                </Card>
+            </Container>
         )
-
     }
 
 }
 
-export default DetailHoax
+const mapStateToProps = state => ({
+    hoaxData: state.postHoaxReducer.hoaxData
+})
+
+const mapDispatchToProps = dispatch => ({
+    getDataHoax: (id) => {
+        dispatch(getDataHoax(id))
+    },
+    addVoteHoax: (data) => {
+        dispatch(addVoteHoax(data))
+    },
+    addVoteNonHoax: (data) => {
+        dispatch(addVoteNonHoax(data))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailHoax)

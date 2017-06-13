@@ -44,7 +44,7 @@ const SearchResult = (props) => {
     // console.log(props.hoaxResult.sources[0].negation)
     return (
         <Container text style={styles.top}>
-            { /* <h1 style={styles.center}>Hasil</h1> */ }
+            { /* <h1 style={styles.center}>Hasil</h1> */}
             <Statistic>
                 <Statistic.Value>
                     <Icon name='check' />
