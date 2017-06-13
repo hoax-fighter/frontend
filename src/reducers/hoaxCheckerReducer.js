@@ -8,6 +8,7 @@ let initialState = {
   newsList: [],
   tbh: '',
   loading: false
+
 };
 
 const addUserInput = (state, data) => {

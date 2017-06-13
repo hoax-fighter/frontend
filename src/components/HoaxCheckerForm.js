@@ -70,15 +70,18 @@ class HoaxCheckerForm extends Component {
   }
 
   checkResult() {
-    // console.log('loading', this.props.loading)
-    console.log('data', this.props.hoaxResult)
 
-    // if (this.props.hoaxResult) {
-    //   return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
-    // }
+    console.log('loading', this.props.loading)
+    // console.log('data', this.props.hoaxResult)
+    console.log('data', this.props.hoaxResult.sources)
+
+    if (this.props.hoaxResult) {
+      return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
+    }
   }
 
   render() {
+
     if (this.props.loadingSignIn) {
       return (
         <Loader
@@ -87,6 +90,7 @@ class HoaxCheckerForm extends Component {
           inline='centered'>Loading</Loader>
       )
     }
+
     return (
       <div style={styles.top}>
         <h1 style={styles.logo}>Hoax Fighter</h1>
