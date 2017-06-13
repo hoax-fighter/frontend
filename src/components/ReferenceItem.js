@@ -66,7 +66,7 @@ showDownVoteCount() {
 }
 
     render() {
-        // console.log(this.props.data)
+        console.log(this.props)
         if (this.props.message === 'Hasil pencarian mengindikasikan terverifikasi sebagai Hoax') {
       
       return (

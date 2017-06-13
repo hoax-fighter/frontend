@@ -35,7 +35,7 @@ const renderRef = (props) => {
 
 const SearchResult = (props) => {
 
-    console.log('msk props', props)
+    // console.log('msk props', props)
 
     const { sources, message } = props.hoaxResult
     // const { conclusion } = props.hoaxResult.result.conclusion

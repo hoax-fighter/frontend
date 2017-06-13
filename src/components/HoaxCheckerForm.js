@@ -62,7 +62,6 @@ class HoaxCheckerForm extends Component {
   }
 
   handleChange(e) {
-    console.log(e.target.value)
     this.setState({
       userInput: e.target.value,
       userInputTemp: e.target.value,
@@ -71,7 +70,7 @@ class HoaxCheckerForm extends Component {
 
   checkResult() {
 
-    console.log('loading', this.props.loading)
+    // console.log('loading', this.props.loading)
     // console.log('data', this.props.hoaxResult)
     console.log('data', this.props.hoaxResult.sources)
 
@@ -81,7 +80,7 @@ class HoaxCheckerForm extends Component {
   }
 
   render() {
-
+    // console.log('props dari form', this.props)
     if (this.props.loadingSignIn) {
       return (
         <Loader
