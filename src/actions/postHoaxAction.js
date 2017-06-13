@@ -26,8 +26,38 @@ export const insertHoax = ({ user, title, content }) => {
             content
         })
             .then(response => {
-                alert(response)
-                console.log('response', response)
+                return dispatch({
+                    type: actionType.INSERT_HOAX_SUCCESS,
+                    payload: response.data.post
+                })
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+}
+
+export const deleteHoax = (id) => {
+    return dispatch => {
+        axios.delete(`http://localhost:3002/api/post/${id}`)
+            .then(response => {
+                return dispatch({
+                    type: actionType.DELETE_HOAX,
+                    payload: id
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+}
+
+export const getDataHoax = (id) => {
+    return dispatch => {
+        axios.get(`http://localhost:3002/api/post/${id}`)
+            .then(response => {
+                console.log(response.data.post)
             })
             .catch(error => {
                 console.log(error)

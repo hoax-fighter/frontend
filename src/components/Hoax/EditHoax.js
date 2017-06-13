@@ -2,12 +2,6 @@ import React from 'react'
 
 import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react'
 
-import { connect } from 'react-redux'
-
-import {
-    insertHoax
-} from '../../actions'
-
 const styles = {
     buttonStyle: {
         backgroundColor: '#F5F5F5',
@@ -18,9 +12,10 @@ const styles = {
     }
 }
 
-class AddHoaxForm extends React.Component {
+class EditHoax extends React.Component {
 
     constructor(props) {
+        console.log('cons')
         super(props)
         this.state = {
             form: {
@@ -30,32 +25,6 @@ class AddHoaxForm extends React.Component {
             },
             modalOpen: false
         }
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e) {
-
-        let { name, value } = e.target
-        let { form } = this.state
-
-        let tmpForm = {
-            ...form,
-            user: localStorage.getItem('user')
-        }
-
-        tmpForm[name] = value
-
-        console.log(tmpForm)
-
-        this.setState({
-            form: tmpForm
-        })
-    }
-
-    onUserSubmit(e) {
-        e.preventDefault();
-        this.handleClose()
-        this.props.insertHoax(this.state.form)
     }
 
     handleOpen = (e) => this.setState({
@@ -66,13 +35,24 @@ class AddHoaxForm extends React.Component {
         modalOpen: false,
     })
 
+    componentWillMount() {
+        console.log('will')
+    }
+
+    componentDidMount() {
+        console.log('did')
+    }
+
     render() {
+        // console.log(this.props.hoaxId)
+        // console.log(this.props.hoaxData)
+        console.log('render')
         return (
             <Modal
                 trigger={<Button
                     onClick={this.handleOpen}
                     style={styles.buttonStyle}>
-                    <Icon name='add square' /> Insert Hoax News</Button>}
+                    <Icon name='add square' /> Edit Hoax News</Button>}
                 closeIcon='close'
                 closeOnDimmerClick={false}
                 size='small'
@@ -87,13 +67,11 @@ class AddHoaxForm extends React.Component {
                                 placeholder='Hoax Fighter'
                                 name='title'
                                 type='text'
-                                onChange={this.handleChange}
                                 required={true} />
                         </Form.Field>
                         <Form.TextArea
                             label='Content'
                             placeholder='Hoax Fighter is not real'
-                            onChange={this.handleChange}
                             required={true}
                             type='text'
                             name='content'
@@ -110,17 +88,7 @@ class AddHoaxForm extends React.Component {
             </Modal>
         )
     }
+
 }
 
-
-const mapStateToProps = state => ({
-    userId: state.authReducer.userId
-})
-
-const mapDispatchToProps = dispatch => ({
-    insertHoax: (data) => {
-        dispatch(insertHoax(data))
-    }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddHoaxForm)
+export default EditHoax

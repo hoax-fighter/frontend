@@ -69,8 +69,9 @@ class Navbar extends Component {
   }
 
   render() {
+    console.log('navbar')
+    console.log(this.props.userId)
     let data = localStorage.getItem('token')
-    console.log('data', data)
     if (data) {
       return (
         <div>
@@ -88,8 +89,10 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = state => ({
-  signInMessage: state.authReducer.signInMessage
+  signInMessage: state.authReducer.signInMessage,
+  userId: state.authReducer.userId
 })
+
 const mapDispatchToProps = dispatch => ({
   signOutUser: () => {
     dispatch(signOutUser())

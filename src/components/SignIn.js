@@ -60,7 +60,7 @@ class SignIn extends React.Component {
         modalOpen: true,
     })
 
-    handleClose = () => this.setState({
+    handleClose = (e) => this.setState({
         modalOpen: false,
     })
 

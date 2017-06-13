@@ -22,6 +22,7 @@ export const signInUser = ({ email, password }) => {
                 axios.get(`http://localhost:3002/api/board/users/find/${user.email}`)
                     .then(response => {
                         dispatch(saveUserData(response.data.users._id))
+                        localStorage.setItem('user', response.data.users._id)
                         alert('Sign In Success')
                     })
                     .catch(error => {
@@ -29,7 +30,6 @@ export const signInUser = ({ email, password }) => {
                     })
             })
             .catch(error => {
-                // console.log(error)
                 var message = ''
                 if (error.code === 'auth/wrong-password') {
                     message = 'Password is Invalid'

@@ -70,8 +70,8 @@ class HoaxCheckerForm extends Component {
   }
 
   checkResult() {
-    console.log('loading', this.props.loading)
-    console.log('data', this.props.hoaxResult)
+    // console.log('loading', this.props.loading)
+    // console.log('data', this.props.hoaxResult)
 
     if (this.props.hoaxResult) {
       return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
@@ -116,8 +116,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addUserInput: userInput => dispatch(addUserInput(userInput)),
-  addNewsSearch: userInput => dispatch(addNewsSearch(userInput))
+  addUserInput: userInput => dispatch(addUserInput(userInput))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HoaxCheckerForm);
