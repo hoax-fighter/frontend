@@ -32,7 +32,7 @@ onClickUpVote(data, idx) {
     console.log(data)
     let newData = {
         userId: window.localStorage.getItem('user'),
-        value: 1,
+        value: -1,
         name: data[idx].name,
         description: data[idx].description,
         url: data[idx].url,
@@ -46,7 +46,7 @@ onClickUpVote(data, idx) {
 onClickDownVote(data, idx) {
     let newData = {
         userId: window.localStorage.getItem('user'),
-        value: -1,
+        value: 1,
         name: data[idx].name,
         description: data[idx].description,
         url: data[idx].url,
