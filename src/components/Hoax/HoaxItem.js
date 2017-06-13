@@ -6,6 +6,8 @@ import {
     deleteHoax
 } from '../../actions'
 
+import { Link } from 'react-router-dom'
+
 import DetailHoax from './DetailHoax'
 import EditHoax from './EditHoax'
 
@@ -28,6 +30,26 @@ class HoaxItem extends React.Component {
                 postId: ''
             }
         }
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    handleChange(e) {
+
+        let { name, value } = e.target
+        let { form } = this.state
+
+        let tmpForm = {
+            ...form,
+            user: localStorage.getItem('user')
+        }
+
+        tmpForm[name] = value
+
+        console.log(tmpForm)
+
+        this.setState({
+            form: tmpForm
+        })
     }
 
     renderButton() {
@@ -37,7 +59,11 @@ class HoaxItem extends React.Component {
             return (
                 <div>
                     <DetailHoax data={this.props.item} />
-                    <EditHoax />
+                    <Link to={`/edithoax/${_id}`}>
+                        <Button>
+                            Edit
+                        </Button>
+                    </Link>
                     <Button onClick={() => this.props.deleteHoax(_id)} basic color='red'>Delete</Button>
                 </div>
             )
@@ -50,29 +76,37 @@ class HoaxItem extends React.Component {
 
     render() {
         const { title, content, user, createdAt } = this.props.item
-        let newContent = content.split('.')
-        return (
-            <div style={styles.cardStyle}>
-                <Card fluid>
-                    <Card.Content>
-                        <Card.Header>
-                            {title}
-                        </Card.Header>
-                        <Card.Description>
-                            {newContent[0]}
-                        </Card.Description>
-                        <hr />
-                        <Card.Meta>Posted By : {user.name}</Card.Meta>
-                        <Card.Meta>{createdAt}</Card.Meta>
-                        {this.renderButton()}
-                    </Card.Content>
-                </Card>
-            </div>
+        let newContent = ''
+        if (content) {
+            newContent = content.split('.')
+            return (
+                <div style={styles.cardStyle}>
+                    <Card fluid>
+                        <Card.Content>
+                            <Card.Header>
+                                {title}
+                            </Card.Header>
+                            <Card.Description>
+                                {newContent[0]}
+                            </Card.Description>
+                            <hr />
+                            <Card.Meta>Posted By : {user.name}</Card.Meta>
+                            <Card.Meta>{createdAt}</Card.Meta>
+                            {this.renderButton()}
+                        </Card.Content>
+                    </Card>
+                </div>
 
-        )
+            )
+        } else {
+            return (
+                <div>
+                </div>
+            )
+        }
+
 
     }
-
 }
 
 const mapDispatchToProps = dispatch => ({

@@ -1,94 +1,146 @@
 import React from 'react'
 
-import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react'
+import { Button, Header, Icon, Form, Container } from 'semantic-ui-react'
+
+import { connect } from 'react-redux'
+import {
+    getDataHoax,
+    editHoax
+} from '../../actions'
+
+import {
+    Redirect
+} from "react-router-dom";
 
 const styles = {
-    buttonStyle: {
-        backgroundColor: '#F5F5F5',
-        color: '#212121'
-    },
-    submitStyle: {
-        marginBottom: 20
+    top: {
+        marginTop: 100,
     }
 }
 
 class EditHoax extends React.Component {
 
     constructor(props) {
-        console.log('cons')
         super(props)
         this.state = {
             form: {
                 user: '',
                 title: '',
-                content: ''
+                content: '',
+                postId: ''
             },
-            modalOpen: false
+            statusEdit: false
         }
+        this.handleChange = this.handleChange.bind(this);
+
     }
 
-    handleOpen = (e) => this.setState({
-        modalOpen: true,
-    })
+    handleChange(e) {
+        let { name, value } = e.target
+        let { form } = this.state
+        let tmpForm = form
 
-    handleClose = (e) => this.setState({
-        modalOpen: false,
-    })
+        tmpForm[name] = value
 
-    componentWillMount() {
-        console.log('will')
+        this.setState({
+            form: tmpForm
+        })
+
     }
 
-    componentDidMount() {
-        console.log('did')
+    updateHoax() {
+        this.setState({
+            statusEdit: true
+        })
+
+        let { form } = this.state
+        let newHoax = {
+            ...form
+        }
+        this.props.editHoax(newHoax)
     }
 
     render() {
-        // console.log(this.props.hoaxId)
-        // console.log(this.props.hoaxData)
-        console.log('render')
-        return (
-            <Modal
-                trigger={<Button
-                    onClick={this.handleOpen}
-                    style={styles.buttonStyle}>
-                    <Icon name='add square' /> Edit Hoax News</Button>}
-                closeIcon='close'
-                closeOnDimmerClick={false}
-                size='small'
-                open={this.state.modalOpen}
-                onClose={this.handleClose}>
-                <Header icon='sign in' content='Add Hoax News' />
-                <Modal.Content>
-                    <Form onSubmit={(e) => this.onUserSubmit(e)}>
+        console.log('state', this.state.form)
+        if (this.state.statusEdit) {
+            return (
+                <Redirect to={'/hoaxlist'} />
+            )
+        } else {
+            return (
+                <Container text style={styles.top}>
+                    <Header as='h2' textAlign='center'>
+                        Edit Your Bookmark
+                </Header>
+                    <Form>
+                        <input
+                            type='hidden'
+                            name="postId"
+                            value={this.state.form.postId}
+                            onChange={this.handleChange} />
                         <Form.Field>
                             <label>Title</label>
                             <input
                                 placeholder='Hoax Fighter'
-                                name='title'
                                 type='text'
+                                name="title"
+                                value={this.state.form.title}
+                                onChange={this.handleChange}
                                 required={true} />
                         </Form.Field>
                         <Form.TextArea
-                            label='Content'
+                            label='content'
                             placeholder='Hoax Fighter is not real'
+                            onChange={this.handleChange}
                             required={true}
                             type='text'
                             name='content'
+                            value={this.state.form.content}
                             rows='4' />
-                        <Button
-                            color='blue'
-                            floated='right'
-                            style={styles.submitStyle}
-                        >
-                            <Icon name='sign in' /> Insert
-                    </Button>
+                        <Button onClick={() => this.updateHoax()}>Submit</Button>
                     </Form>
-                </Modal.Content>
-            </Modal>
-        )
+                </Container>
+            )
+
+        }
+    }
+
+    componentDidMount() {
+        this.props.getDataHoax(this.props.match.params.id)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('will')
+        console.log(nextProps.hoaxData)
+
+        const { content, title, _id } = nextProps.hoaxData
+        let newState = {
+            user: localStorage.getItem('user'),
+            title,
+            content,
+            postId: _id
+        }
+
+        console.log('new', newState)
+
+        this.setState({
+            form: newState
+        })
     }
 
 }
 
-export default EditHoax
+const mapStateToProps = state => ({
+    hoaxData: state.postHoaxReducer.hoaxData
+})
+
+const mapDispatchToProps = dispatch => ({
+    getDataHoax: (id) => {
+        dispatch(getDataHoax(id))
+    },
+    editHoax: (data) => {
+        dispatch(editHoax(data))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditHoax)

@@ -3,7 +3,8 @@ import * as actionType from '../actions/constants'
 let initalState = {
     hoaxList: [],
     loadingGetHoaxList: false,
-    message: ''
+    message: '',
+    hoaxData: []
 }
 
 const getHoaxSuccess = (state, data) => {
@@ -38,6 +39,29 @@ const deleteHoax = (state, id) => {
     return newState
 }
 
+const getDataHoax = (state, data) => {
+    let newState = {
+        ...state,
+        hoaxData: data
+    }
+
+    return newState
+}
+
+const editHoax = (state, data) => {
+    let newData = state.hoaxList.map(item => {
+        return item._id === data._id ? data : item
+    })
+
+    let newState = {
+        ...state,
+        hoaxList: newData,
+        message: 'Post Hoax Is Successfully Updated'
+    }
+
+    return newState
+}
+
 const postHoaxReducer = (state = initalState, { type, payload }) => {
     switch (type) {
         case actionType.GET_HOAX_SUCCESS:
@@ -46,6 +70,10 @@ const postHoaxReducer = (state = initalState, { type, payload }) => {
             return insertHoaxSuccess(state, payload)
         case actionType.DELETE_HOAX:
             return deleteHoax(state, payload)
+        case actionType.EDIT_HOAX:
+            return editHoax(state, payload)
+        case actionType.GET_DATA_HOAX:
+            return getDataHoax(state, payload)
         default:
             return state
     }

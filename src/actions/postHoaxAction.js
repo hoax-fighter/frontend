@@ -57,7 +57,36 @@ export const getDataHoax = (id) => {
     return dispatch => {
         axios.get(`http://localhost:3002/api/post/${id}`)
             .then(response => {
-                console.log(response.data.post)
+                // console.log(response.data.post)
+                return dispatch({
+                    type: actionType.GET_DATA_HOAX,
+                    payload: response.data.post
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+}
+
+export const editHoax = ({ user, title, content, postId }) => {
+    return dispatch => {
+        axios.put(`http://localhost:3002/api/post/${postId}`, {
+            title,
+            content
+        })
+            .then(response => {
+                axios.get(`http://localhost:3002/api/post/${postId}`)
+                    .then(result => {
+                        // console.log(response.data.post)
+                        return dispatch({
+                            type: actionType.EDIT_HOAX,
+                            payload: (result.data.post)
+                        })
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(error => {
                 console.log(error)

@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Home from './components/Home'
 import HoaxList from './components/Hoax/HoaxList.js'
+import EditHoax from './components/Hoax/EditHoax'
 
 import { Container } from 'semantic-ui-react'
 
@@ -31,7 +32,8 @@ class App extends Component {
           <Navbar />
           <Container>
             <Route exact path="/" component={Home} />
-            <Route exact path="/hoaxlist" component={HoaxList} />
+            <Route path="/hoaxlist" component={HoaxList} />
+            <Route path="/edithoax/:id" component={EditHoax} />
           </Container>
         </div>
       </BrowserRouter>
