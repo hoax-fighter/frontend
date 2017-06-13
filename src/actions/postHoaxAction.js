@@ -81,7 +81,7 @@ export const editHoax = ({ user, title, content, postId }) => {
                         // console.log(response.data.post)
                         return dispatch({
                             type: actionType.EDIT_HOAX,
-                            payload: (result.data.post)
+                            payload: result.data.post
                         })
                     })
                     .catch(error => {
@@ -90,6 +90,46 @@ export const editHoax = ({ user, title, content, postId }) => {
             })
             .catch(error => {
                 console.log(error)
+            })
+    }
+}
+
+export const addVoteHoax = ({ userId, postId }) => {
+    return dispatch => {
+        axios.post(`http://localhost:3002/api/post/hoax/${postId}`, {
+            userId,
+            value: 1
+        })
+            .then(response => {
+                console.log('res', response.data)
+                if (response.data.success) {
+                    return dispatch({
+                        type: actionType.GET_DATA_HOAX,
+                        payload: response.data.post
+                    })
+                } else {
+                    alert(response.data.error)
+                }
+            })
+    }
+}
+
+export const addVoteNonHoax = ({ userId, postId }) => {
+    return dispatch => {
+        axios.post(`http://localhost:3002/api/post/hoax/${postId}`, {
+            userId,
+            value: -1
+        })
+            .then(response => {
+                console.log('res', response.data)
+                if (response.data.success) {
+                    return dispatch({
+                        type: actionType.GET_DATA_HOAX,
+                        payload: response.data.post
+                    })
+                } else {
+                    alert(response.data.error)
+                }
             })
     }
 }

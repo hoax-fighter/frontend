@@ -16,21 +16,10 @@ const addUserInput = (state, data) => {
   return newState;
 }
 
-const addUserInputStart = state => {
-  const newState = {
-    ...state,
-    loading: true
-  }
-
-  return newState
-}
-
 const hoaxCheckerReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.ADD_USER_INPUT_SUCCESS:
       return addUserInput(state, action.payload);
-    case actionType.ADD_USER_INPUT_START:
-      return addUserInputStart(state)
     default:
       return state;
   }

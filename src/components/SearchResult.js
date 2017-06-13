@@ -26,7 +26,7 @@ const SearchResult = (props) => {
 
     return (
         <Container text style={styles.top}>
-            { /* <h1 style={styles.center}>Hasil</h1> */ }
+            { /* <h1 style={styles.center}>Hasil</h1> */}
             <Statistic>
                 <Statistic.Value>
                     <Icon name='check' />

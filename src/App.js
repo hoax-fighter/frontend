@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home'
 import HoaxList from './components/Hoax/HoaxList.js'
 import EditHoax from './components/Hoax/EditHoax'
+import DetailHoax from './components/Hoax/DetailHoax'
 
 import { Container } from 'semantic-ui-react'
 
@@ -33,6 +34,7 @@ class App extends Component {
           <Container>
             <Route exact path="/" component={Home} />
             <Route path="/hoaxlist" component={HoaxList} />
+            <Route path="/detailhoax/:id" component={DetailHoax} />
             <Route path="/edithoax/:id" component={EditHoax} />
           </Container>
         </div>

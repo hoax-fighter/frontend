@@ -121,7 +121,7 @@ class EditHoax extends React.Component {
             postId: _id
         }
 
-        console.log('new', newState)
+        // console.log('new', newState)
 
         this.setState({
             form: newState
