@@ -22,9 +22,10 @@ export const signInUser = ({ email, password }) => {
                 axios.get(`http://localhost:3002/api/board/users/find/${user.email}`)
                     .then(response => {
                         dispatch(saveUserData(response.data.users._id))
-                        window.localStorage.setItem('user', response.data.users._id)
-                        window.alert('Sign In Success')
-                        console.log(response)
+
+                        localStorage.setItem('user', response.data.users._id)
+                        alert('Sign In Success')
+
                     })
                     .catch(error => {
                         console.log(error)
@@ -69,6 +70,7 @@ export const registerUser = ({ name, email, password }) => {
                 })
                     .then(response => {
                         dispatch(registerUserSuccess())
+                        alert('Register Success')
                     })
             })
             .catch(error => {
@@ -101,3 +103,4 @@ export const saveUserData = (id) => ({
     type: actionType.SAVE_USER_DATA,
     payload: id
 })
+

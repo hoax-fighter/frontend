@@ -11,6 +11,7 @@ import {
 import { upvoteNews, downvoteNews } from '../actions';
 
 const styles = {
+
   contentStyle: {
     paddingLeft: 20,
   },
@@ -39,6 +40,7 @@ onClickUpVote(data, idx) {
     console.log('upvote');
     console.log(newData);
     this.props.upvoteNews(newData);
+
 }
 
 onClickDownVote(data, idx) {
@@ -58,6 +60,7 @@ showUpVoteCount() {
 
 }
 
+
 showDownVoteCount() {
     
 }
@@ -68,6 +71,7 @@ showDownVoteCount() {
       
       return (
           <Item.Group style={styles.container}>
+
             <Item>
                 <Icon name='newspaper' size='huge' />
                 <Item.Content style={styles.contentStyle, styles.container}>
@@ -89,6 +93,7 @@ showDownVoteCount() {
                     <Icon name='newspaper' size='huge' />
                 </div>
                 <Item.Content style={styles.contentStyle}>
+
                     <Item.Header style={{ color: 'blue' }} as="a"><a rel="noopener noreferrer" target="_blank" href={this.props.item.bingUrl ? this.props.item.bingUrl : this.props.item.url}>{this.props.item.provider}</a></Item.Header>
                     { this.props.item.isUrlReputable ? <Item.Meta style={{ color: '#1EE494' }}>Sumber terpercaya</Item.Meta> : <Item.Meta style={{ color: '#BE3144' }}>Sumber tak terpercaya</Item.Meta> }
                     <Item.Description>
