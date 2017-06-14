@@ -29,10 +29,10 @@ class Navbar extends Component {
 
   renderBeforeSignIn() {
     return (
-      <Menu fixed='top' color='blue' inverted style={styles.navbarStyle}>
+      <Menu fixed='top' style={styles.navbarStyle} size='large'>
         <Menu.Item
-          name="Hoax Fighter"
-          color="blue"
+          name="Logical Information E-dentification"
+          style={{ color: 'white' }}
         />
 
         <Menu.Menu position='right'>
@@ -49,9 +49,19 @@ class Navbar extends Component {
 
   renderAfterSignIn() {
     return (
-      <Menu fixed='top' color='blue' inverted style={styles.navbarStyle}>
-        <Link to="/"><Menu.Item style={{ color: 'white' }} name='Hoax Fighter' /></Link>
-        <Link to="/hoaxlist"><Menu.Item style={{ color: 'white' }} name='Check Hoax News' /></Link>
+      <Menu fixed='top' style={styles.navbarStyle} size='large'>
+        <Link to="/">
+          <Menu.Item
+            style={{ color: 'white' }}
+            name='Logical Information E-dentification'>
+          </Menu.Item>
+        </Link>
+        <Link to="/hoaxlist">
+          <Menu.Item
+            style={{ color: 'white' }}
+            name='Hoax News'>
+          </Menu.Item>
+        </Link>
         <Menu.Menu position='right'>
           <Menu.Item>
             <Button
@@ -69,8 +79,8 @@ class Navbar extends Component {
   }
 
   render() {
-    console.log('navbar')
-    console.log(this.props.userId)
+    // console.log('navbar')
+    // console.log(this.props.userData)
     let data = localStorage.getItem('token')
     if (data) {
       return (
@@ -90,7 +100,7 @@ class Navbar extends Component {
 
 const mapStateToProps = state => ({
   signInMessage: state.authReducer.signInMessage,
-  userId: state.authReducer.userId
+  userData: state.authReducer.userData
 })
 
 const mapDispatchToProps = dispatch => ({

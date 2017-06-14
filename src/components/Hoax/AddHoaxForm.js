@@ -71,16 +71,16 @@ class AddHoaxForm extends React.Component {
             <Modal
                 trigger={<Button
                     onClick={this.handleOpen}
-                    style={styles.buttonStyle}>
-                    <Icon name='add square' /> Insert Hoax News</Button>}
+                    color='blue'>
+                    <Icon name='add square' /> Add Hoax News</Button>}
                 closeIcon='close'
                 closeOnDimmerClick={false}
                 size='small'
                 open={this.state.modalOpen}
                 onClose={this.handleClose}>
-                <Header icon='sign in' content='Add Hoax News' />
+                <Header icon='plus square' content='Add Hoax News' />
                 <Modal.Content>
-                    <Form onSubmit={(e) => this.onUserSubmit(e)}>
+                    <Form onSubmit={(e) => this.onUserSubmit(e)} size='large'>
                         <Form.Field>
                             <label>Title</label>
                             <input
@@ -103,7 +103,7 @@ class AddHoaxForm extends React.Component {
                             floated='right'
                             style={styles.submitStyle}
                         >
-                            <Icon name='sign in' /> Insert
+                            <Icon name='save' /> Submit
                     </Button>
                     </Form>
                 </Modal.Content>

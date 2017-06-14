@@ -3,14 +3,16 @@ import * as actionType from '../actions/constants'
 let initialState = {
     registerMessage: '',
     signInMessage: '',
-    userId: '',
-    loading: false
+    userData: '',
+    loading: false,
+    signOut: false
 }
 
 const signInSuccess = state => {
     let newState = {
         ...state,
         signInMessage: 'Sign In Success',
+        signOut: false
     }
 
     return newState
@@ -29,7 +31,9 @@ const signInFailed = (state, payload) => {
 const signOutSuccess = (state) => {
     let newState = {
         ...state,
-        signInMessage: 'Sign Out Success'
+        ...initialState,
+        signInMessage: 'Sign Out Success',
+        signOut: true
     }
 
     return newState
@@ -52,10 +56,10 @@ const registerFailed = (state, message) => {
     return newState
 }
 
-const saveUserData = (state, id) => {
+const saveUserData = (state, data) => {
     let newState = {
         ...state,
-        userId: id,
+        userData: data,
         loading: false
     }
 

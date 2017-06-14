@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button, Header, Icon, Form, Container } from 'semantic-ui-react'
+import { Button, Header, Icon, Form, Container, Breadcrumb } from 'semantic-ui-react'
 
 import { connect } from 'react-redux'
 import {
@@ -9,7 +9,7 @@ import {
 } from '../../actions'
 
 import {
-    Redirect
+    Redirect, Link
 } from "react-router-dom";
 
 const styles = {
@@ -61,48 +61,71 @@ class EditHoax extends React.Component {
     }
 
     render() {
-        console.log('state', this.state.form)
-        if (this.state.statusEdit) {
-            return (
-                <Redirect to={'/hoaxlist'} />
-            )
+        // console.log('state', this.state.form)
+        let data = localStorage.getItem('token')
+        if (data || !this.props.signOut) {
+            if (this.state.statusEdit) {
+                return (
+                    <Redirect to={'/hoaxlist'} />
+                )
+            } else {
+                return (
+                    <div style={styles.top}>
+                        <Breadcrumb size='huge'>
+                            <Breadcrumb.Section><Link to="/hoaxlist">Hoax News</Link></Breadcrumb.Section>
+                            <Breadcrumb.Divider icon='right chevron' />
+                            <Breadcrumb.Section>Edit</Breadcrumb.Section>
+                            <Breadcrumb.Divider icon='right chevron' />
+                        </Breadcrumb>
+                        <Container text>
+                            <Header as='h1' icon textAlign='center'>
+                                <Icon name='edit' />
+                                <Header.Content>
+                                    Edit Hoax News
+                        </Header.Content>
+                            </Header>
+                            <br />
+                            <Form size='large'>
+                                <input
+                                    type='hidden'
+                                    name="postId"
+                                    value={this.state.form.postId}
+                                    onChange={this.handleChange} />
+                                <Form.Field>
+                                    <label>Title</label>
+                                    <input
+                                        placeholder='Hoax Fighter'
+                                        type='text'
+                                        name="title"
+                                        value={this.state.form.title}
+                                        onChange={this.handleChange}
+                                        required={true} />
+                                </Form.Field>
+                                <Form.TextArea
+                                    label='content'
+                                    placeholder='Hoax Fighter is not real'
+                                    onChange={this.handleChange}
+                                    required={true}
+                                    type='text'
+                                    name='content'
+                                    value={this.state.form.content}
+                                    rows='4' />
+                                <Button
+                                    color='blue'
+                                    onClick={() => this.updateHoax()}><Icon name='save' /> Submit</Button>
+                            </Form>
+                        </Container>
+                    </div>
+
+                )
+
+            }
         } else {
             return (
-                <Container text style={styles.top}>
-                    <Header as='h2' textAlign='center'>
-                        Edit Your Bookmark
-                </Header>
-                    <Form>
-                        <input
-                            type='hidden'
-                            name="postId"
-                            value={this.state.form.postId}
-                            onChange={this.handleChange} />
-                        <Form.Field>
-                            <label>Title</label>
-                            <input
-                                placeholder='Hoax Fighter'
-                                type='text'
-                                name="title"
-                                value={this.state.form.title}
-                                onChange={this.handleChange}
-                                required={true} />
-                        </Form.Field>
-                        <Form.TextArea
-                            label='content'
-                            placeholder='Hoax Fighter is not real'
-                            onChange={this.handleChange}
-                            required={true}
-                            type='text'
-                            name='content'
-                            value={this.state.form.content}
-                            rows='4' />
-                        <Button onClick={() => this.updateHoax()}>Submit</Button>
-                    </Form>
-                </Container>
+                <Redirect to={'/'} />
             )
-
         }
+
     }
 
     componentDidMount() {
@@ -131,7 +154,8 @@ class EditHoax extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    hoaxData: state.postHoaxReducer.hoaxData
+    hoaxData: state.postHoaxReducer.hoaxData,
+    signOut: state.authReducer.signOut
 })
 
 const mapDispatchToProps = dispatch => ({

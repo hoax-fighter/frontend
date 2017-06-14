@@ -1,7 +1,6 @@
 import React from 'react'
 
 import HoaxCheckerForm from './HoaxCheckerForm'
-import Footer from './Footer'
 
 class Home extends React.Component {
 
@@ -16,7 +15,7 @@ class Home extends React.Component {
         return (
             <div>
                 <HoaxCheckerForm />
-            </div> 
+            </div>
         )
     }
 }

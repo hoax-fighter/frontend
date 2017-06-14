@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, TextArea, Button, Loader } from 'semantic-ui-react'
+import { Form, TextArea, Button, Loader, Icon, Image } from 'semantic-ui-react'
+import logo from '../assets/lie.png'
 
-import { addUserInput, addNewsSearch } from '../actions';
+import { addUserInput } from '../actions';
 
 import SearchResult from './SearchResult'
 
@@ -18,11 +19,8 @@ const styles = {
     marginTop: '100px',
   },
   logo: {
-    fontFamily: 'Rubik',
-    letterSpacing: '0.2em',
     textAlign: 'center',
-    fontSize: '4em',
-    color: '#303841',
+    fontSize: '3em',
   },
   top: {
     marginTop: 100,
@@ -70,17 +68,13 @@ class HoaxCheckerForm extends Component {
 
   checkResult() {
 
-    // console.log('loading', this.props.loading)
-    // console.log('data', this.props.hoaxResult)
-    console.log('data', this.props.hoaxResult.sources)
-
     if (this.props.hoaxResult) {
       return <SearchResult userInput={this.state.userInputTemp} hoaxResult={this.props.hoaxResult} />
     }
   }
 
   render() {
-    // console.log('props dari form', this.props)
+
     if (this.props.loadingSignIn) {
       return (
         <Loader
@@ -92,8 +86,9 @@ class HoaxCheckerForm extends Component {
 
     return (
       <div style={styles.top}>
-        <h1 style={styles.logo}>Hoax Fighter</h1>
-        <Form onSubmit={e => this.onUserSubmit(e)} style={styles.container}>
+        <Image src={logo} alt={logo} height='200' width='200' centered={true} />
+        <h1 style={styles.logo}>Logical Information E-dentification</h1>
+        <Form onSubmit={e => this.onUserSubmit(e)} style={styles.container} size='big'>
           <Form.Field
             control={TextArea}
             label={'Tempel konten yang ingin dicek di sini...'}
@@ -102,8 +97,9 @@ class HoaxCheckerForm extends Component {
             onChange={this.handleChange.bind(this)}
             placeholder="Hasil akan lebih baik jika konten berisi lebih banyak detail (misal: lebih dari dua kalimat)..."
             required={true}
+            rows='5'
           />
-          <Button loading={this.props.loading} style={{ backgroundColor: 'royalblue', color: 'white' }}>Cek Konten</Button>
+          <Button loading={this.props.loading} style={{ backgroundColor: 'royalblue', color: 'white' }}><Icon name='search' /> Cek Konten</Button>
         </Form>
         {this.checkResult()}
       </div>

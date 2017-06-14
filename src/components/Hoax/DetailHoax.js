@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button, Header, Icon, Modal, Card, Container } from 'semantic-ui-react'
+import { Button, Header, Icon, Card, Container, Breadcrumb } from 'semantic-ui-react'
 
 import {
     connect
@@ -11,6 +11,10 @@ import {
     addVoteHoax,
     addVoteNonHoax
 } from '../../actions'
+
+import {
+    Redirect, Link
+} from "react-router-dom";
 
 const styles = {
     top: {
@@ -30,6 +34,7 @@ class DetailHoax extends React.Component {
         }
         this.voteHoax = this.voteHoax.bind(this);
         this.nonVoteHoax = this.nonVoteHoax.bind(this)
+        this.resetHoax = this.resetHoax.bind(this)
     }
 
     componentDidMount() {
@@ -38,63 +43,137 @@ class DetailHoax extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            userId: nextProps.hoaxData.user._id,
+            userId: localStorage.getItem('user'),
             name: nextProps.hoaxData.user.name,
             postId: nextProps.hoaxData._id
         })
     }
 
     voteHoax() {
-        this.props.addVoteHoax(this.state)
+        var user = localStorage.getItem('user')
+        var votes = this.props.hoaxData.votes
+        var res = votes.filter((item) => {
+            return item.user === user
+        })
+        if (res.length === 0) {
+            this.props.addVoteHoax(this.state)
+        } else {
+            if (res[0].value === 0) {
+                this.props.addVoteHoax(this.state)
+            } else {
+                alert('Anda Sudah Vote')
+            }
+        }
     }
 
     nonVoteHoax() {
-        this.props.addVoteNonHoax(this.state)
+        var user = localStorage.getItem('user')
+        var votes = this.props.hoaxData.votes
+        var res = votes.filter((item) => {
+            return item.user === user
+        })
+        if (res.length === 0) {
+            this.props.addVoteNonHoax(this.state)
+        } else {
+            if (res[0].value === 0) {
+                this.props.addVoteNonHoax(this.state)
+            } else {
+                alert('Anda Sudah Vote')
+            }
+        }
+
+
+    }
+
+    resetHoax() {
+        var user = localStorage.getItem('user')
+        var votes = this.props.hoaxData.votes
+        var res = votes.filter((item) => {
+            return item.user === user
+        })
+        if (res.length > 0) {
+            if (res[0].value === 1) {
+                this.props.addVoteNonHoax(this.state)
+            } else if (res[0].value === -1) {
+                this.props.addVoteHoax(this.state)
+            } else {
+                alert('Anda Belum Vote')
+            }
+        } else {
+            alert('Anda Belum Vote')
+        }
+
     }
 
     render() {
-        // console.log(this.props.hoaxData)
+        let data = localStorage.getItem('token')
         let { title, content, createdAt, hoaxVoteCount, nonHoaxVoteCount } = this.props.hoaxData
-        // let username = this.props.hoaxData.user.name
-        // let userId = this.props.hoaxData.user._id
-        return (
-            <Container text style={styles.top}>
-                <Card fluid>
-                    <Card.Content>
-                        <Card.Header>
-                            {title}
-                        </Card.Header>
-                        <Card.Description>
-                            {content}
-                        </Card.Description>
-                        <hr />
-                        <Card.Meta>Posted By : {this.state.name}</Card.Meta>
-                        <Card.Meta>{createdAt}</Card.Meta>
-                        <br />
-                        <Button
-                            color='red'
-                            content='Hoax'
-                            icon='heart'
-                            label={{ basic: true, color: 'red', pointing: 'left', content: hoaxVoteCount }}
-                            onClick={this.voteHoax}
-                        />
-                        <Button
-                            color='red'
-                            content='Non Hoax'
-                            icon='heart'
-                            label={{ basic: true, color: 'red', pointing: 'left', content: nonHoaxVoteCount }}
-                            onClick={this.nonVoteHoax}
-                        />
-                    </Card.Content>
-                </Card>
-            </Container>
-        )
+        if (data || !this.props.signOut) {
+            return (
+                <div style={styles.top}>
+                    <Breadcrumb size='huge'>
+                        <Breadcrumb.Section><Link to="/hoaxlist">Hoax News</Link></Breadcrumb.Section>
+                        <Breadcrumb.Divider icon='right chevron' />
+                        <Breadcrumb.Section>Detail</Breadcrumb.Section>
+                        <Breadcrumb.Divider icon='right chevron' />
+                    </Breadcrumb>
+                    <Container text>
+                        <Header as='h1' icon textAlign='center'>
+                            <Icon name='info circle' />
+                            <Header.Content>
+                                Hoax News Detail
+                        </Header.Content>
+                        </Header>
+                        <Card fluid>
+                            <Card.Content>
+                                <Card.Header>
+                                    {title}
+                                </Card.Header>
+                                <Card.Description>
+                                    {content}
+                                </Card.Description>
+                                <hr />
+                                <Card.Meta>Posted By : {this.state.name}</Card.Meta>
+                                <Card.Meta>{createdAt}</Card.Meta>
+                                <br />
+                                <Button
+                                    color='red'
+                                    content='Hoax'
+                                    icon='thumbs down'
+                                    label={{ basic: true, color: 'red', pointing: 'left', content: hoaxVoteCount }}
+                                    onClick={this.voteHoax}
+                                />
+                                <Button
+                                    color='blue'
+                                    content='Fact'
+                                    icon='thumbs up'
+                                    label={{ basic: true, color: 'blue', pointing: 'left', content: nonHoaxVoteCount }}
+                                    onClick={this.nonVoteHoax}
+                                />
+                                <Button
+                                    color='violet'
+                                    content='Reset My Vote'
+                                    icon='history'
+                                    onClick={this.resetHoax}
+                                />
+                            </Card.Content>
+                        </Card>
+                    </Container>
+                </div>
+            )
+        } else {
+            return (
+                <Redirect to={'/'} />
+            )
+        }
+
     }
 
 }
 
 const mapStateToProps = state => ({
-    hoaxData: state.postHoaxReducer.hoaxData
+    hoaxData: state.postHoaxReducer.hoaxData,
+    signOut: state.authReducer.signOut
 })
 
 const mapDispatchToProps = dispatch => ({
