@@ -1,6 +1,7 @@
 import firebase from 'firebase'
 import axios from 'axios'
 import * as actionType from './constants'
+import * as url from '../constants';
 
 
 export const signInUserSuccess = () => ({
@@ -19,7 +20,7 @@ export const signInUser = ({ email, password }) => {
             .then(user => {
                 localStorage.setItem('token', user.ie)
                 dispatch(signInUserSuccess())
-                axios.get(`http://localhost:3002/api/board/users/find/${user.email}`)
+                axios.get(`${url}api/board/users/find/${user.email}`)
                     .then(response => {
                         dispatch(saveUserData(response.data.users))
 
@@ -64,7 +65,7 @@ export const registerUser = ({ name, email, password }) => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(user => {
                 const { email } = user
-                axios.post(`http://localhost:3002/api/board/users`, {
+                axios.post(`${url}api/board/users`, {
                     name,
                     email
                 })

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as actionType from './constants'
+import * as url from '../constants';
 
 export const getHoaxListSuccess = (data) => ({
     type: actionType.GET_HOAX_SUCCESS,
@@ -8,7 +9,7 @@ export const getHoaxListSuccess = (data) => ({
 
 export const getHoaxList = () => {
     return dispatch => {
-        axios.get(`http://localhost:3002/api/post`)
+        axios.get(`${url}api/post`)
             .then(response => {
                 dispatch(getHoaxListSuccess(response.data.posts))
             })
@@ -20,13 +21,13 @@ export const getHoaxList = () => {
 
 export const insertHoax = ({ user, title, content }) => {
     return dispatch => {
-        axios.post(`http://localhost:3002/api/post`, {
+        axios.post(`${url}api/post`, {
             user,
             title,
             content
         })
             .then(response => {
-                axios.get(`http://localhost:3002/api/post/${response.data.post._id}`)
+                axios.get(`${url}api/post/${response.data.post._id}`)
                     .then(res => {
                         return dispatch({
                             type: actionType.INSERT_HOAX_SUCCESS,
@@ -45,7 +46,7 @@ export const insertHoax = ({ user, title, content }) => {
 
 export const deleteHoax = (id) => {
     return dispatch => {
-        axios.delete(`http://localhost:3002/api/post/${id}`)
+        axios.delete(`${url}api/post/${id}`)
             .then(response => {
                 return dispatch({
                     type: actionType.DELETE_HOAX,
@@ -60,7 +61,7 @@ export const deleteHoax = (id) => {
 
 export const getDataHoax = (id) => {
     return dispatch => {
-        axios.get(`http://localhost:3002/api/post/${id}`)
+        axios.get(`${url}api/post/${id}`)
             .then(response => {
                 // console.log(response.data.post)
                 return dispatch({
@@ -76,12 +77,12 @@ export const getDataHoax = (id) => {
 
 export const editHoax = ({ user, title, content, postId }) => {
     return dispatch => {
-        axios.put(`http://localhost:3002/api/post/${postId}`, {
+        axios.put(`${url}api/post/${postId}`, {
             title,
             content
         })
             .then(response => {
-                axios.get(`http://localhost:3002/api/post/${postId}`)
+                axios.get(`${url}api/post/${postId}`)
                     .then(result => {
                         // console.log(response.data.post)
                         return dispatch({
@@ -101,7 +102,7 @@ export const editHoax = ({ user, title, content, postId }) => {
 
 export const addVoteHoax = ({ userId, postId }) => {
     return dispatch => {
-        axios.post(`http://localhost:3002/api/post/hoax/${postId}`, {
+        axios.post(`${url}api/post/hoax/${postId}`, {
             userId,
             value: 1
         })
@@ -125,7 +126,7 @@ export const addVoteHoax = ({ userId, postId }) => {
 
 export const addVoteNonHoax = ({ userId, postId }) => {
     return dispatch => {
-        axios.post(`http://localhost:3002/api/post/hoax/${postId}`, {
+        axios.post(`${url}api/post/hoax/${postId}`, {
             userId,
             value: -1
         })

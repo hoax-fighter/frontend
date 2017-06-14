@@ -76,7 +76,7 @@ class Register extends React.Component {
                 onClose={this.handleClose}>
                 <Header icon='user plus' content='Register' />
                 <Modal.Content>
-                    <Form onSubmit={(e) => this.onRegister(e)}>
+                    <Form onSubmit={(e) => this.onRegister(e)} size='large'>
                         <Form.Field>
                             <label>Name</label>
                             <input
@@ -96,7 +96,7 @@ class Register extends React.Component {
                                 required={true} />
                         </Form.Field>
                         <Form.Field>
-                            <label>Password</label>
+                            <label>Password (Min 6 characters)</label>
                             <input
                                 name="password"
                                 type="password"

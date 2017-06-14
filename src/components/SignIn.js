@@ -90,7 +90,7 @@ class SignIn extends React.Component {
                                 required={true} />
                         </Form.Field>
                         <Form.Field>
-                            <label>Password</label>
+                            <label>Password (Min 6 characters)</label>
                             <input
                                 type="password"
                                 name="password"

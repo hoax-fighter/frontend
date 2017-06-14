@@ -17,6 +17,14 @@ const addUserInput = (state, data) => {
   return newState;
 }
 
+const addUserInputStart = (state) => {
+  const newState = {
+    ...state,
+    loading: true
+  }
+  return newState
+}
+
 const hoaxCheckerReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.ADD_USER_INPUT_SUCCESS:
@@ -27,6 +35,8 @@ const hoaxCheckerReducer = (state = initialState, action) => {
     case actionType.DOWNVOTE_NEWS_SUCCESS:
       const downvoteState = { ...state, tbh: action.payload, test: 'downvoted' };
       return downvoteState
+    case actionType.ADD_USER_INPUT_START:
+      return addUserInputStart(state)
     default:
       return state;
   }
