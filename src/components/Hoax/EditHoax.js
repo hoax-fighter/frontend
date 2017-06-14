@@ -112,7 +112,8 @@ class EditHoax extends React.Component {
                                     rows='4' />
                                 <Button
                                     color='blue'
-                                    onClick={() => this.updateHoax()}><Icon name='save' /> Submit</Button>
+                                    onClick={() => this.updateHoax()}
+                                    type='button'><Icon name='save' /> Submit</Button>
                             </Form>
                         </Container>
                     </div>

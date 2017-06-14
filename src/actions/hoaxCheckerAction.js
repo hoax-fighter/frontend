@@ -62,7 +62,6 @@ export const upvoteNews = (data, idx) => {
     description: data.description,
     url: data.url,
   }
-  console.log('upvotenews', data)
   return (dispatch) => {
     axios.post('http://localhost:3002/api/source/feedback', newsData)
     .then((res) => {

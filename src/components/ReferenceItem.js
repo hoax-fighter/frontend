@@ -29,9 +29,9 @@ class ReferenceItem extends Component {
   }
 
     onClickUpVote(data, idx) {
-        console.log(data)
+        // console.log(data)
         let newData = {
-            userId: window.localStorage.getItem('user'),
+            userId: localStorage.getItem('user'),
             value: -1,
             name: data[idx].name,
             description: data[idx].description,
@@ -39,34 +39,26 @@ class ReferenceItem extends Component {
         }
         console.log('upvote');
         console.log(newData);
-        this.props.upvoteNews(newData);
+        this.props.upvoteNews(newData, idx);
 
     }
 
-onClickUpVote(data, idx) {
+onClickDownVote(data, idx) {
     // console.log(this.props.hoaxResult.sources)
-    console.log(data)
     let newData = {
-        userId: window.localStorage.getItem('user'),
-        value: -1,
+        userId: localStorage.getItem('user'),
+        value: 1,
         name: data[idx].name,
         description: data[idx].description,
         url: data[idx].url,
     }
-    console.log('upvote');
-    this.props.getFactCount(newData, idx);
+    console.log('downvote');
+    this.props.downvoteNews(newData, idx);
     // this.setState({
     //     hoaxCount: this.props.hoaxResult.sources[idx].feedback.hoaxVoteCount,
     //     factCount: this.props.hoaxResult.sources[idx].feedback.nonHoaxVoteCount,
     // })
     // console.log(newData);
-    
-
-    // showUpVoteCount() {
-
-    // }
-    console.log('downvote');
-    this.props.getHoaxCount(newData, idx);
     // this.setState({
     //     hoaxCount: this.props.hoaxResult.sources[idx].feedback.hoaxVoteCount,
     //     factCount: this.props.hoaxResult.sources[idx].feedback.nonHoaxVoteCount,
@@ -144,15 +136,15 @@ showDownvoteCount(idx) {
 }
 
 const mapStateToProps = state => ({
-    test: state.hoaxCheckerReducer.test,
+  test: state.hoaxCheckerReducer.test,
   hoaxResult: state.hoaxCheckerReducer.tbh,
   sources: state.hoaxCheckerReducer.tbh.sources,
 //   source: state.hoaxCheckerReducer.tbh.sources[ReferenceItem.props.index],
 })
 
 const mapDispatchToProps = dispatch => ({
-  getFactCount: (data, idx) => dispatch(upvoteNews(data, idx)),
-  getHoaxCount: (data, idx) => dispatch(downvoteNews(data, idx)),
+  upvoteNews: (data, idx) => dispatch(upvoteNews(data, idx)),
+  downvoteNews: (data, idx) => dispatch(downvoteNews(data, idx)),
 })
 
 
