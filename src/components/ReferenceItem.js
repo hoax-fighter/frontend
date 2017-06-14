@@ -8,7 +8,7 @@ import {
     Label,
 } from 'semantic-ui-react'
 
-import { upvoteNews, downvoteNews } from '../actions';
+import { getFactCount, getHoaxCount, addUserInput, downvoteNews, upvoteNews } from '../actions';
 
 const styles = {
 
@@ -23,12 +23,17 @@ const styles = {
 class ReferenceItem extends Component {
     constructor(props) {
     super(props)
+    // this.state = {
+    //     factCount: 0,
+    //     hoaxCount: 0,
+    // }
   }
 
 
 //   const { description, provider, url, bingUrl, isUrlReputable, source } = props.item
 
 onClickUpVote(data, idx) {
+    // console.log(this.props.hoaxResult.sources)
     console.log(data)
     let newData = {
         userId: window.localStorage.getItem('user'),
@@ -38,8 +43,13 @@ onClickUpVote(data, idx) {
         url: data[idx].url,
     }
     console.log('upvote');
-    console.log(newData);
-    this.props.upvoteNews(newData);
+    this.props.getFactCount(newData, idx);
+    // this.setState({
+    //     hoaxCount: this.props.hoaxResult.sources[idx].feedback.hoaxVoteCount,
+    //     factCount: this.props.hoaxResult.sources[idx].feedback.nonHoaxVoteCount,
+    // })
+    // console.log(newData);
+    
 
 }
 
@@ -52,21 +62,38 @@ onClickDownVote(data, idx) {
         url: data[idx].url,
     }
     console.log('downvote');
-    console.log(newData);
-    this.props.downvoteNews(newData);
-}
-
-showUpVoteCount() {
-
-}
-
-
-showDownVoteCount() {
+    this.props.getHoaxCount(newData, idx);
+    // this.setState({
+    //     hoaxCount: this.props.hoaxResult.sources[idx].feedback.hoaxVoteCount,
+    //     factCount: this.props.hoaxResult.sources[idx].feedback.nonHoaxVoteCount,
+    // })
+    // console.log(newData);
     
 }
 
+showUpvoteCount(idx) {
+
+    if (this.props.hoaxResult.sources[idx].feedback) {
+        return this.props.sources[idx].feedback.nonHoaxVoteCount
+    } else {
+        return 0;
+        console.log('tak ada feedback')
+    }
+    // return this.props.data.feedback.nonHoaxVoteCount - this.props.data.feedback.hoaxVoteCount;
+}
+
+showDownvoteCount(idx) {
+    if (this.props.sources[idx].feedback) {
+        return this.props.sources[idx].feedback.hoaxVoteCount
+    } else {
+        return 0;
+        console.log('tak ada feedback')
+    }
+    // return this.props.data.feedback.hoaxVoteCount - this.props.data.feedback.nonHoaxVoteCount;
+}
+
     render() {
-        console.log(this.props)
+        console.log('HOAX RESULT REF ITEM', this.props)
         if (this.props.message === 'Hasil pencarian mengindikasikan terverifikasi sebagai Hoax') {
       
       return (
@@ -101,8 +128,8 @@ showDownVoteCount() {
                     </Item.Description>
                 </Item.Content>
                 <div style={{margin: 'auto'}}>
-                    <Button onClick={() => this.onClickUpVote(this.props.data, this.props.index)} size="mini" style={{margin: 10}} positive label={0} content="Fakta" icon='thumbs up' labelPosition='right' />
-                    <Button onClick={() => this.onClickDownVote(this.props.data, this.props.index)} size="mini" style={{margin: 10}} negative label={0} content="Hoax" icon='thumbs down' labelPosition='right' />
+                    <Button onClick={() => this.onClickUpVote(this.props.data, this.props.index)} size="mini" style={{margin: 10}} positive label={this.props.sources[this.props.index].feedback.nonHoaxVoteCount} content="Fakta" icon='thumbs up' labelPosition='right' />
+                    <Button onClick={() => this.onClickDownVote(this.props.data, this.props.index)} size="mini" style={{margin: 10}} negative label={this.props.sources[this.props.index].feedback.hoaxVoteCount} content="Hoax" icon='thumbs down' labelPosition='right' />
                 </div>
             </Item>
         </Item.Group>
@@ -112,10 +139,17 @@ showDownVoteCount() {
 
 }
 
+const mapStateToProps = state => ({
+    test: state.hoaxCheckerReducer.test,
+  hoaxResult: state.hoaxCheckerReducer.tbh,
+  sources: state.hoaxCheckerReducer.tbh.sources,
+//   source: state.hoaxCheckerReducer.tbh.sources[ReferenceItem.props.index],
+})
+
 const mapDispatchToProps = dispatch => ({
-  upvoteNews: data => dispatch(upvoteNews(data)),
-  downvoteNews: data => dispatch(downvoteNews(data)),
+  getFactCount: (data, idx) => dispatch(upvoteNews(data, idx)),
+  getHoaxCount: (data, idx) => dispatch(downvoteNews(data, idx)),
 })
 
 
-export default connect(null, mapDispatchToProps)(ReferenceItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ReferenceItem);

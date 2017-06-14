@@ -7,8 +7,8 @@ import * as actionType from '../actions/constants';
 let initialState = {
   newsList: [],
   tbh: '',
-  loading: false
-
+  loading: false,
+  test: '',
 };
 
 const addUserInput = (state, data) => {
@@ -21,6 +21,12 @@ const hoaxCheckerReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.ADD_USER_INPUT_SUCCESS:
       return addUserInput(state, action.payload);
+    case actionType.UPVOTE_NEWS_SUCCESS:
+      const upvoteState = { ...state, tbh: action.payload, test: 'upvoted' };
+      return upvoteState
+    case actionType.DOWNVOTE_NEWS_SUCCESS:
+      const downvoteState = { ...state, tbh: action.payload, test: 'downvoted' };
+      return downvoteState
     default:
       return state;
   }

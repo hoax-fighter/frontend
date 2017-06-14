@@ -35,7 +35,7 @@ const renderRef = (props) => {
 
 const SearchResult = (props) => {
 
-    // console.log('msk props', props)
+    console.log('msk props', props)
 
     const { sources, message } = props.hoaxResult
     // const { conclusion } = props.hoaxResult.result.conclusion
@@ -54,7 +54,7 @@ const SearchResult = (props) => {
                 {renderDiv(props)}
             </Statistic>
             {renderRef(props)}
-            {sources.map((item, index) => {
+            {props.hoaxResult.sources.map((item, index) => {
                 return (
                     <ReferenceItem data={sources} message={props.hoaxResult.result.remark} item={item} index={index} key={index} />
                 )

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, TextArea, Button, Loader } from 'semantic-ui-react'
 
-import { addUserInput, addNewsSearch } from '../actions';
+import { addUserInput } from '../actions';
 
 import SearchResult from './SearchResult'
 
@@ -49,6 +49,14 @@ class HoaxCheckerForm extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    console.log('nextprops', nextProps)
+  }
+
+  componentDidUpdate(){
+    console.log('did upadte', this.props)
+  }
+
   onUserSubmit(e) {
     e.preventDefault();
     this.setState({
@@ -80,7 +88,7 @@ class HoaxCheckerForm extends Component {
   }
 
   render() {
-    // console.log('props dari form', this.props)
+    console.log('props dari form', this.props)
     if (this.props.loadingSignIn) {
       return (
         <Loader
@@ -92,6 +100,7 @@ class HoaxCheckerForm extends Component {
 
     return (
       <div style={styles.top}>
+        <h2>{this.props.test}</h2>
         <h1 style={styles.logo}>Hoax Fighter</h1>
         <Form onSubmit={e => this.onUserSubmit(e)} style={styles.container}>
           <Form.Field
@@ -112,11 +121,15 @@ class HoaxCheckerForm extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => {
+  console.log('DARI hoax form mapstate', state)
+  return {
+    test: state.hoaxCheckerReducer.test,
   hoaxResult: state.hoaxCheckerReducer.tbh,
   loading: state.hoaxCheckerReducer.loading,
   loadingSignIn: state.authReducer.loading,
-})
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   addUserInput: userInput => dispatch(addUserInput(userInput)),
