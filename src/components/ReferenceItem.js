@@ -5,19 +5,18 @@ import {
     Item,
     Icon,
     Button,
-    Label,
 } from 'semantic-ui-react'
 
 import { getFactCount, getHoaxCount, addUserInput, downvoteNews, upvoteNews } from '../actions';
 
 const styles = {
 
-  contentStyle: {
-    paddingLeft: 20,
-  },
-  container: {
-    marginBottom: 50,
-  },
+    contentStyle: {
+        paddingLeft: 20,
+    },
+    container: {
+        marginBottom: 50,
+    },
 }
 
 class ReferenceItem extends Component {
@@ -29,8 +28,20 @@ class ReferenceItem extends Component {
     // }
   }
 
+    onClickUpVote(data, idx) {
+        console.log(data)
+        let newData = {
+            userId: window.localStorage.getItem('user'),
+            value: -1,
+            name: data[idx].name,
+            description: data[idx].description,
+            url: data[idx].url,
+        }
+        console.log('upvote');
+        console.log(newData);
+        this.props.upvoteNews(newData);
 
-//   const { description, provider, url, bingUrl, isUrlReputable, source } = props.item
+    }
 
 onClickUpVote(data, idx) {
     // console.log(this.props.hoaxResult.sources)
@@ -51,15 +62,8 @@ onClickUpVote(data, idx) {
     // console.log(newData);
     
 
-}
+    showUpVoteCount() {
 
-onClickDownVote(data, idx) {
-    let newData = {
-        userId: window.localStorage.getItem('user'),
-        value: 1,
-        name: data[idx].name,
-        description: data[idx].description,
-        url: data[idx].url,
     }
     console.log('downvote');
     this.props.getHoaxCount(newData, idx);

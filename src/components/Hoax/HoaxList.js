@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from 'semantic-ui-react'
+import { Container, Header, Icon, Breadcrumb } from 'semantic-ui-react'
 
 import AddHoaxForm from './AddHoaxForm'
 
@@ -8,6 +8,12 @@ import { connect } from 'react-redux'
 import { getHoaxList } from '../../actions';
 
 import HoaxItem from './HoaxItem'
+
+import { Link } from 'react-router-dom'
+
+import {
+    Redirect
+} from "react-router-dom";
 
 const styles = {
     top: {
@@ -34,18 +40,35 @@ class HoaxList extends React.Component {
     }
 
     render() {
-        console.log('props list', this.props.hoaxList)
-        let data = Array.isArray(this.props.hoaxList);
-        console.log(data)
-        return (
-            <div style={styles.top}>
-                <AddHoaxForm />
-                <hr />
-                <Container text>
-                    {this.renderHoaxItem()}
-                </Container>
-            </div>
-        )
+        let data = localStorage.getItem('token')
+        if (data || !this.props.signOut) {
+            return (
+                <div style={styles.top}>
+                    <Breadcrumb size='huge'>
+                        <Breadcrumb.Section><Link to="/hoaxlist">Hoax News</Link></Breadcrumb.Section>
+                        <Breadcrumb.Divider icon='right chevron' />
+                    </Breadcrumb>
+                    <Header as='h1' icon textAlign='center'>
+                        <Icon name='newspaper' />
+                        <Header.Content>
+                            Hoax News
+                        </Header.Content>
+                    </Header>
+                    <br />
+                    <br />
+                    <AddHoaxForm />
+                    <hr />
+                    <Container text>
+                        {this.renderHoaxItem()}
+                    </Container>
+                </div>
+            )
+        } else {
+            return (
+                <Redirect to={'/'} />
+            )
+        }
+
     }
 
 }
@@ -53,6 +76,7 @@ class HoaxList extends React.Component {
 const mapStateToProps = state => ({
     hoaxList: state.postHoaxReducer.hoaxList,
     loadingGetHoaxList: state.postHoaxReducer.loadingGetHoaxList,
+    signOut: state.authReducer.signOut
 })
 
 const mapDispatchToProps = dispatch => ({

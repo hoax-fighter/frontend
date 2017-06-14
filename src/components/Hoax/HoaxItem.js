@@ -50,23 +50,32 @@ class HoaxItem extends React.Component {
     }
 
     renderButton() {
-        const { _id, title, content } = this.props.item
+        const { _id, user } = this.props.item
         let userId = localStorage.getItem('user')
-        if (userId) {
+        if (userId === user._id) {
             return (
                 <div>
                     <Link to={`/detailhoax/${_id}`}>
-                        <Button>
-                            Detail
+                        <Button color='violet'>
+                            <Icon name='search' />Detail
                         </Button>
                     </Link>
                     <Link to={`/edithoax/${_id}`}>
-                        <Button>
-                            Edit
+                        <Button color='orange'>
+                            <Icon name='edit' />Edit
                         </Button>
                     </Link>
-                    <Button onClick={() => this.props.deleteHoax(_id)} basic color='red'>Delete</Button>
+                    <Button onClick={() => this.props.deleteHoax(_id)} color='red'><Icon name='delete' />Delete</Button>
                 </div>
+            )
+        } else {
+            return (
+                <Link to={`/detailhoax/${_id}`}>
+                    <Button
+                        color='violet'><Icon name='search' />
+                        Detail
+                        </Button>
+                </Link>
             )
         }
     }
@@ -89,6 +98,7 @@ class HoaxItem extends React.Component {
                             <hr />
                             <Card.Meta>Posted By : {user.name}</Card.Meta>
                             <Card.Meta>{createdAt}</Card.Meta>
+                            <br />
                             {this.renderButton()}
                         </Card.Content>
                     </Card>

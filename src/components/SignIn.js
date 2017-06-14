@@ -79,7 +79,7 @@ class SignIn extends React.Component {
                 onClose={this.handleClose}>
                 <Header icon='sign in' content='Sign In' />
                 <Modal.Content>
-                    <Form onSubmit={(e) => this.onSignIn(e)}>
+                    <Form onSubmit={(e) => this.onSignIn(e)} size='large'>
                         <Form.Field>
                             <label>Email</label>
                             <input

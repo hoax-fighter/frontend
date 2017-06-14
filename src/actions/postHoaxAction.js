@@ -26,11 +26,16 @@ export const insertHoax = ({ user, title, content }) => {
             content
         })
             .then(response => {
-                return dispatch({
-                    type: actionType.INSERT_HOAX_SUCCESS,
-                    payload: response.data.post
-                })
-
+                axios.get(`http://localhost:3002/api/post/${response.data.post._id}`)
+                    .then(res => {
+                        return dispatch({
+                            type: actionType.INSERT_HOAX_SUCCESS,
+                            payload: res.data.post
+                        })
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(error => {
                 console.log(error)
@@ -101,8 +106,9 @@ export const addVoteHoax = ({ userId, postId }) => {
             value: 1
         })
             .then(response => {
-                console.log('res', response.data)
+                // console.log('res', response.data)
                 if (response.data.success) {
+                    // alert('Vote Hoax Success')
                     return dispatch({
                         type: actionType.GET_DATA_HOAX,
                         payload: response.data.post
@@ -110,6 +116,9 @@ export const addVoteHoax = ({ userId, postId }) => {
                 } else {
                     alert(response.data.error)
                 }
+            })
+            .catch(error => {
+                console.log(error)
             })
     }
 }
@@ -121,8 +130,9 @@ export const addVoteNonHoax = ({ userId, postId }) => {
             value: -1
         })
             .then(response => {
-                console.log('res', response.data)
+                // console.log('res', response.data)
                 if (response.data.success) {
+                    // alert('Vote Fact Success')
                     return dispatch({
                         type: actionType.GET_DATA_HOAX,
                         payload: response.data.post
@@ -130,6 +140,9 @@ export const addVoteNonHoax = ({ userId, postId }) => {
                 } else {
                     alert(response.data.error)
                 }
+            })
+            .catch(error => {
+                console.log(error)
             })
     }
 }

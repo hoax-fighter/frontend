@@ -21,7 +21,7 @@ export const signInUser = ({ email, password }) => {
                 dispatch(signInUserSuccess())
                 axios.get(`http://localhost:3002/api/board/users/find/${user.email}`)
                     .then(response => {
-                        dispatch(saveUserData(response.data.users._id))
+                        dispatch(saveUserData(response.data.users))
 
                         localStorage.setItem('user', response.data.users._id)
                         alert('Sign In Success')
