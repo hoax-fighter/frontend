@@ -62,9 +62,9 @@ onClickUpVote(data, idx) {
     // console.log(newData);
     
 
-    showUpVoteCount() {
+    // showUpVoteCount() {
 
-    }
+    // }
     console.log('downvote');
     this.props.getHoaxCount(newData, idx);
     // this.setState({
@@ -132,8 +132,8 @@ showDownvoteCount(idx) {
                     </Item.Description>
                 </Item.Content>
                 <div style={{margin: 'auto'}}>
-                    <Button onClick={() => this.onClickUpVote(this.props.data, this.props.index)} size="mini" style={{margin: 10}} positive label={this.props.sources[this.props.index].feedback.nonHoaxVoteCount} content="Fakta" icon='thumbs up' labelPosition='right' />
-                    <Button onClick={() => this.onClickDownVote(this.props.data, this.props.index)} size="mini" style={{margin: 10}} negative label={this.props.sources[this.props.index].feedback.hoaxVoteCount} content="Hoax" icon='thumbs down' labelPosition='right' />
+                    <Button onClick={() => this.onClickUpVote(this.props.data, this.props.index)} size="mini" style={{margin: 10}} positive label={this.showUpvoteCount(this.props.index)} content="Fakta" icon='thumbs up' labelPosition='right' />
+                    <Button onClick={() => this.onClickDownVote(this.props.data, this.props.index)} size="mini" style={{margin: 10}} negative label={this.showDownvoteCount(this.props.index)} content="Hoax" icon='thumbs down' labelPosition='right' />
                 </div>
             </Item>
         </Item.Group>
