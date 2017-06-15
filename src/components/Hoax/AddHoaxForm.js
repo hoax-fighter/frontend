@@ -45,8 +45,6 @@ class AddHoaxForm extends React.Component {
 
         tmpForm[name] = value
 
-        console.log(tmpForm)
-
         this.setState({
             form: tmpForm
         })

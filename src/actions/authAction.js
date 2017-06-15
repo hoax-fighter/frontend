@@ -24,7 +24,6 @@ export const signInUser = ({ email, password }) => {
                     .then(response => {
                         dispatch(saveUserData(response.data.users))
                         localStorage.setItem('userData', response.data.users.name)
-                        console.log(response.data.users.name)
                         localStorage.setItem('user', response.data.users._id)
                     })
                     .catch(error => {

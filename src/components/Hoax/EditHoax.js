@@ -133,8 +133,6 @@ class EditHoax extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('will')
-        console.log(nextProps.hoaxData)
 
         const { content, title, _id } = nextProps.hoaxData
         let newState = {
