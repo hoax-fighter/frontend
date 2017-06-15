@@ -60,7 +60,6 @@ class DetailHoax extends React.Component {
     }
 
     render() {
-        // console.log('detail', this.props.data)
         const { title, content, createdAt, hoaxVoteCount, nonHoaxVoteCount, user } = this.props.data
         return (
             <Modal

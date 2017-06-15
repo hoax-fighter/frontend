@@ -32,7 +32,6 @@ class Navbar extends Component {
 
   getLoginName() {
     let userData = localStorage.getItem('userData');
-    // console.log(userData)
     if(userData === null) {
       if(this.props.userData.name)
       return `Welcome, ${this.props.userData.name}`
@@ -63,7 +62,6 @@ class Navbar extends Component {
   }
 
   renderAfterSignIn() {
-    
     return (
       <Menu fixed='top' style={styles.navbarStyle} size='large'>
         <Link to="/">
@@ -100,9 +98,6 @@ class Navbar extends Component {
   }
 
   render() {
-    // console.log('Dari Navbar', this.props.userData)
-    // console.log('navbar')
-    // console.log(this.props.userData)
     let data = localStorage.getItem('token')
     if (data) {
       return (

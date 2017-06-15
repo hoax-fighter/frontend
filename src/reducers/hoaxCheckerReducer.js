@@ -1,9 +1,5 @@
 import * as actionType from '../actions/constants';
 
-// yang terjadi ketika user submit ke form adalah:
-// 1. akan terjadi req axios POST ke db
-// 2. lalu keluarkan returnnya
-
 let initialState = {
   newsList: [],
   tbh: '',
@@ -13,7 +9,6 @@ let initialState = {
 
 const addUserInput = (state, data) => {
   const newState = { ...state, tbh: data, loading: false };
-  // console.log('reducer', data)
   return newState;
 }
 

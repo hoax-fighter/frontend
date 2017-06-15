@@ -20,16 +20,8 @@ const styles = {
 }
 
 class ReferenceItem extends Component {
-//     constructor(props) {
-//     super(props)
-//     // this.state = {
-//     //     factCount: 0,
-//     //     hoaxCount: 0,
-//     // }
-//   }
 
     onClickUpVote(data, idx) {
-        // console.log(data)
         if(localStorage.getItem('user')) {
             let newData = {
             userId: localStorage.getItem('user'),
@@ -47,7 +39,6 @@ class ReferenceItem extends Component {
     }
 
 onClickDownVote(data, idx) {
-    // console.log(this.props.hoaxResult.sources)
     if(localStorage.getItem('user')) {
         let newData = {
         userId: localStorage.getItem('user'),
@@ -61,18 +52,6 @@ onClickDownVote(data, idx) {
     } else {
         alert('You must sign in first to vote');
     }
-    
-    // this.setState({
-    //     hoaxCount: this.props.hoaxResult.sources[idx].feedback.hoaxVoteCount,
-    //     factCount: this.props.hoaxResult.sources[idx].feedback.nonHoaxVoteCount,
-    // })
-    // console.log(newData);
-    // this.setState({
-    //     hoaxCount: this.props.hoaxResult.sources[idx].feedback.hoaxVoteCount,
-    //     factCount: this.props.hoaxResult.sources[idx].feedback.nonHoaxVoteCount,
-    // })
-    // console.log(newData);
-    
 }
 
 showUpvoteCount(idx) {
@@ -81,9 +60,7 @@ showUpvoteCount(idx) {
         return this.props.sources[idx].feedback.nonHoaxVoteCount
     } else {
         return 0;
-        // console.log('tak ada feedback')
     }
-    // return this.props.data.feedback.nonHoaxVoteCount - this.props.data.feedback.hoaxVoteCount;
 }
 
 showDownvoteCount(idx) {
@@ -91,18 +68,14 @@ showDownvoteCount(idx) {
         return this.props.sources[idx].feedback.hoaxVoteCount
     } else {
         return 0;
-        // console.log('tak ada feedback')
     }
-    // return this.props.data.feedback.hoaxVoteCount - this.props.data.feedback.nonHoaxVoteCount;
 }
 
     render() {
-        // console.log('HOAX RESULT REF ITEM', this.props)
         if (this.props.message === 'Hasil pencarian mengindikasikan terverifikasi sebagai Hoax') {
       
       return (
           <Item.Group style={styles.container}>
-
             <Item>
                 <Icon name='newspaper' size='huge' />
                 <Item.Content style={styles.contentStyle, styles.container}>
@@ -119,7 +92,6 @@ showDownvoteCount(idx) {
     return (
         <Item.Group style={styles.container}>
             <Item>
-                
                 <div>
                     <Icon name='newspaper' size='huge' />
                 </div>
@@ -147,7 +119,6 @@ const mapStateToProps = state => ({
   test: state.hoaxCheckerReducer.test,
   hoaxResult: state.hoaxCheckerReducer.tbh,
   sources: state.hoaxCheckerReducer.tbh.sources,
-//   source: state.hoaxCheckerReducer.tbh.sources[ReferenceItem.props.index],
 })
 
 const mapDispatchToProps = dispatch => ({

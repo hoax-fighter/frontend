@@ -32,7 +32,6 @@ class EditHoax extends React.Component {
             },
             modalOpen: false
         }
-        // this.handleChange = this.props.handleChange.bind(this);
 
     }
 
@@ -45,7 +44,6 @@ class EditHoax extends React.Component {
     })
 
     render() {
-        // console.log('edit hoax', this.props.data)
         this.props.getDataHoax(this.props.data._id)
         return (
             <Modal

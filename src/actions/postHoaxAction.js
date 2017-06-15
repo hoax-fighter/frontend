@@ -63,7 +63,6 @@ export const getDataHoax = (id) => {
     return dispatch => {
         axios.get(`${url}api/post/${id}`)
             .then(response => {
-                // console.log(response.data.post)
                 return dispatch({
                     type: actionType.GET_DATA_HOAX,
                     payload: response.data.post
@@ -84,7 +83,6 @@ export const editHoax = ({ user, title, content, postId }) => {
             .then(response => {
                 axios.get(`${url}api/post/${postId}`)
                     .then(result => {
-                        // console.log(response.data.post)
                         return dispatch({
                             type: actionType.EDIT_HOAX,
                             payload: result.data.post
@@ -107,9 +105,7 @@ export const addVoteHoax = ({ userId, postId }) => {
             value: 1
         })
             .then(response => {
-                // console.log('res', response.data)
                 if (response.data.success) {
-                    // alert('Vote Hoax Success')
                     return dispatch({
                         type: actionType.GET_DATA_HOAX,
                         payload: response.data.post
@@ -131,9 +127,7 @@ export const addVoteNonHoax = ({ userId, postId }) => {
             value: -1
         })
             .then(response => {
-                // console.log('res', response.data)
                 if (response.data.success) {
-                    // alert('Vote Fact Success')
                     return dispatch({
                         type: actionType.GET_DATA_HOAX,
                         payload: response.data.post

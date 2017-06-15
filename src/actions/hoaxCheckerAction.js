@@ -3,9 +3,6 @@ import * as actionType from './constants';
 import store from '../store';
 import { url } from '../constants';
 
-
-// console.log(store.getState().hoaxCheckerReducer.tbh)
-
 export const addUserInputSuccess = result => ({
   type: actionType.ADD_USER_INPUT_SUCCESS,
   payload: result,
@@ -22,7 +19,6 @@ export const addUserInput = (userInput) => {
     dispatch(addUserInputStart())
     axios.post(`${url}api/check`, input)
       .then(res => {
-        // console.log('dari adduserinput action', res.data)
         dispatch(addUserInputSuccess(res.data))
       })
       .catch(error => {

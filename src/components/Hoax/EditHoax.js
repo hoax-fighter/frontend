@@ -61,7 +61,6 @@ class EditHoax extends React.Component {
     }
 
     render() {
-        // console.log('state', this.state.form)
         let data = localStorage.getItem('token')
         if (data || !this.props.signOut) {
             if (this.state.statusEdit) {
@@ -144,8 +143,6 @@ class EditHoax extends React.Component {
             content,
             postId: _id
         }
-
-        // console.log('new', newState)
 
         this.setState({
             form: newState

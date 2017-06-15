@@ -35,16 +35,9 @@ const renderRef = (props) => {
 
 const SearchResult = (props) => {
 
-    // console.log('msk props', props)
-
     const { sources } = props.hoaxResult
-    // const { conclusion } = props.hoaxResult.result.conclusion
-    // const { remark } = props.hoaxResult.result.remark
-    // cek negasi -> props.hoaxResult.sources[0].isInputNegated
-    // console.log(props.hoaxResult.sources[0].negation)
     return (
         <Container text style={styles.top}>
-            { /* <h1 style={styles.center}>Hasil</h1> */}
             <Statistic>
                 <Statistic.Value>
                     <Icon name='check' />
@@ -59,7 +52,6 @@ const SearchResult = (props) => {
                     <ReferenceItem data={sources} message={props.hoaxResult.result.remark} item={item} index={index} key={index} />
                 )
             })}
-
         </Container>
     )
 

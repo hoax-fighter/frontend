@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 import axios from 'axios'
 import * as actionType from './constants'
-import {url} from '../constants';
+import { url } from '../constants';
 
 
 export const signInUserSuccess = () => ({
@@ -26,8 +26,6 @@ export const signInUser = ({ email, password }) => {
                         localStorage.setItem('userData', response.data.users.name)
                         console.log(response.data.users.name)
                         localStorage.setItem('user', response.data.users._id)
-                        // alert('Sign In Success')
-
                     })
                     .catch(error => {
                         console.log(error)
