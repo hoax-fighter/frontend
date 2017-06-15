@@ -84,7 +84,7 @@ class AddHoaxForm extends React.Component {
                         <Form.Field>
                             <label>Title</label>
                             <input
-                                placeholder='Hoax Fighter'
+                                placeholder='Insert title here'
                                 name='title'
                                 type='text'
                                 onChange={this.handleChange}
@@ -92,7 +92,7 @@ class AddHoaxForm extends React.Component {
                         </Form.Field>
                         <Form.TextArea
                             label='Content'
-                            placeholder='Hoax Fighter is not real'
+                            placeholder='Insert content here'
                             onChange={this.handleChange}
                             required={true}
                             type='text'
