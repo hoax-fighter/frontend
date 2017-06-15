@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as actionType from './constants'
-import * as url from '../constants';
+import { url } from '../constants';
 
 export const getHoaxListSuccess = (data) => ({
     type: actionType.GET_HOAX_SUCCESS,

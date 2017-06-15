@@ -35,11 +35,11 @@ const renderRef = (props) => {
 
 const SearchResult = (props) => {
 
-    console.log('msk props', props)
+    // console.log('msk props', props)
 
-    const { sources, message } = props.hoaxResult
+    const { sources } = props.hoaxResult
     // const { conclusion } = props.hoaxResult.result.conclusion
-    const { remark } = props.hoaxResult.result.remark
+    // const { remark } = props.hoaxResult.result.remark
     // cek negasi -> props.hoaxResult.sources[0].isInputNegated
     // console.log(props.hoaxResult.sources[0].negation)
     return (

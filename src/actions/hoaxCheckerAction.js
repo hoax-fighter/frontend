@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actionType from './constants';
 import store from '../store';
-import {url} from '../constants';
+import { url } from '../constants';
 
 
 // console.log(store.getState().hoaxCheckerReducer.tbh)
@@ -22,7 +22,7 @@ export const addUserInput = (userInput) => {
     dispatch(addUserInputStart())
     axios.post(`${url}api/check`, input)
       .then(res => {
-        console.log('dari adduserinput action', res.data)
+        // console.log('dari adduserinput action', res.data)
         dispatch(addUserInputSuccess(res.data))
       })
       .catch(error => {
@@ -69,7 +69,7 @@ export const upvoteNews = (data, idx) => {
     url: data.url,
   }
   return (dispatch) => {
-    axios.post('${url}api/source/feedback', newsData)
+    axios.post(`${url}api/source/feedback`, newsData)
     .then((res) => {
       if (res.data.success) {
         console.log('masuk dispatch upvote news feedback action')
@@ -93,7 +93,7 @@ export const downvoteNews = (data, idx) => {
   }
   return (dispatch) => {
     console.log('sebelum axios downvote news action')
-    axios.post('${url}api/source/feedback', newsData)
+    axios.post(`${url}api/source/feedback`, newsData)
     .then((res) => {
       console.log('RES DOWNVOTE', res.data)
       if (res.data.success) {

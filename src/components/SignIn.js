@@ -43,7 +43,7 @@ class SignIn extends React.Component {
 
         tmpForm[name] = value
 
-        console.log(tmpForm)
+        // console.log(tmpForm)
 
         this.setState({
             form: tmpForm

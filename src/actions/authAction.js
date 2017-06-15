@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 import axios from 'axios'
 import * as actionType from './constants'
-import * as url from '../constants';
+import {url} from '../constants';
 
 
 export const signInUserSuccess = () => ({
@@ -23,9 +23,10 @@ export const signInUser = ({ email, password }) => {
                 axios.get(`${url}api/board/users/find/${user.email}`)
                     .then(response => {
                         dispatch(saveUserData(response.data.users))
-
+                        localStorage.setItem('userData', response.data.users.name)
+                        console.log(response.data.users.name)
                         localStorage.setItem('user', response.data.users._id)
-                        alert('Sign In Success')
+                        // alert('Sign In Success')
 
                     })
                     .catch(error => {

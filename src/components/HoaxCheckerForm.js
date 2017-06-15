@@ -48,11 +48,11 @@ class HoaxCheckerForm extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log('nextprops', nextProps)
+    // console.log('nextprops', nextProps)
   }
 
   componentDidUpdate(){
-    console.log('did upadte', this.props)
+    // console.log('did upadte', this.props)
   }
 
   onUserSubmit(e) {
@@ -82,7 +82,7 @@ class HoaxCheckerForm extends Component {
   }
 
   render() {
-    console.log('props dari form', this.props)
+    // console.log('props dari form', this.props)
     if (this.props.loadingSignIn) {
       return (
         <Loader
@@ -117,9 +117,9 @@ class HoaxCheckerForm extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('DARI hoax form mapstate', state)
+  // console.log('DARI hoax form mapstate', state)
   return {
-    test: state.hoaxCheckerReducer.test,
+  test: state.hoaxCheckerReducer.test,
   hoaxResult: state.hoaxCheckerReducer.tbh,
   loading: state.hoaxCheckerReducer.loading,
   loadingSignIn: state.authReducer.loading,

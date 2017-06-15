@@ -25,6 +25,20 @@ class Navbar extends Component {
   constructor(props) {
     super(props)
     this.signOut = this.signOut.bind(this)
+    this.state = {
+      name: '',
+    }
+  }
+
+  getLoginName() {
+    let userData = localStorage.getItem('userData');
+    // console.log(userData)
+    if(userData === null) {
+      if(this.props.userData.name)
+      return `Welcome, ${this.props.userData.name}`
+    } else {
+      return `Welcome, ${userData}`
+    }
   }
 
   renderBeforeSignIn() {
@@ -36,6 +50,7 @@ class Navbar extends Component {
         />
 
         <Menu.Menu position='right'>
+        
           <Menu.Item>
             <SignIn />
           </Menu.Item>
@@ -48,6 +63,7 @@ class Navbar extends Component {
   }
 
   renderAfterSignIn() {
+    
     return (
       <Menu fixed='top' style={styles.navbarStyle} size='large'>
         <Link to="/">
@@ -63,6 +79,11 @@ class Navbar extends Component {
           </Menu.Item>
         </Link>
         <Menu.Menu position='right'>
+          <Menu.Item
+            style={{ color: 'white' }}
+            name={this.getLoginName()}
+          />
+            
           <Menu.Item>
             <Button
               onClick={this.signOut}
@@ -79,6 +100,7 @@ class Navbar extends Component {
   }
 
   render() {
+    // console.log('Dari Navbar', this.props.userData)
     // console.log('navbar')
     // console.log(this.props.userData)
     let data = localStorage.getItem('token')

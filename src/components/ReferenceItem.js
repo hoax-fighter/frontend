@@ -7,7 +7,7 @@ import {
     Button,
 } from 'semantic-ui-react'
 
-import { getFactCount, getHoaxCount, addUserInput, downvoteNews, upvoteNews } from '../actions';
+import { downvoteNews, upvoteNews } from '../actions';
 
 const styles = {
 
@@ -20,40 +20,48 @@ const styles = {
 }
 
 class ReferenceItem extends Component {
-    constructor(props) {
-    super(props)
-    // this.state = {
-    //     factCount: 0,
-    //     hoaxCount: 0,
-    // }
-  }
+//     constructor(props) {
+//     super(props)
+//     // this.state = {
+//     //     factCount: 0,
+//     //     hoaxCount: 0,
+//     // }
+//   }
 
     onClickUpVote(data, idx) {
         // console.log(data)
-        let newData = {
+        if(localStorage.getItem('user')) {
+            let newData = {
             userId: localStorage.getItem('user'),
             value: -1,
             name: data[idx].name,
             description: data[idx].description,
             url: data[idx].url,
         }
-        console.log('upvote');
-        console.log(newData);
-        this.props.upvoteNews(newData, idx);
-
+            console.log('upvote');
+            console.log(newData);
+            this.props.upvoteNews(newData, idx);
+        } else {
+            alert('You must sign in first to vote');
+        }
     }
 
 onClickDownVote(data, idx) {
     // console.log(this.props.hoaxResult.sources)
-    let newData = {
+    if(localStorage.getItem('user')) {
+        let newData = {
         userId: localStorage.getItem('user'),
         value: 1,
         name: data[idx].name,
         description: data[idx].description,
         url: data[idx].url,
+        }
+        console.log('downvote');
+        this.props.downvoteNews(newData, idx);
+    } else {
+        alert('You must sign in first to vote');
     }
-    console.log('downvote');
-    this.props.downvoteNews(newData, idx);
+    
     // this.setState({
     //     hoaxCount: this.props.hoaxResult.sources[idx].feedback.hoaxVoteCount,
     //     factCount: this.props.hoaxResult.sources[idx].feedback.nonHoaxVoteCount,
@@ -73,7 +81,7 @@ showUpvoteCount(idx) {
         return this.props.sources[idx].feedback.nonHoaxVoteCount
     } else {
         return 0;
-        console.log('tak ada feedback')
+        // console.log('tak ada feedback')
     }
     // return this.props.data.feedback.nonHoaxVoteCount - this.props.data.feedback.hoaxVoteCount;
 }
@@ -83,13 +91,13 @@ showDownvoteCount(idx) {
         return this.props.sources[idx].feedback.hoaxVoteCount
     } else {
         return 0;
-        console.log('tak ada feedback')
+        // console.log('tak ada feedback')
     }
     // return this.props.data.feedback.hoaxVoteCount - this.props.data.feedback.nonHoaxVoteCount;
 }
 
     render() {
-        console.log('HOAX RESULT REF ITEM', this.props)
+        // console.log('HOAX RESULT REF ITEM', this.props)
         if (this.props.message === 'Hasil pencarian mengindikasikan terverifikasi sebagai Hoax') {
       
       return (
